@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>偽物 MAKE IT A QUOTE Web版</title>
+    <meta content="偽物の MAKE IT A QUOTE のWeb版です。" name="description">
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../../css/defaultfont.css">
+    <!--<script type="module">import{parseFont}from'./canvas.js';window.parseFont=parseFont;</script>-->
+    <style>
+      .br::before{content:"\A";white-space:pre;}
+      @media(prefers-color-scheme:dark){
+        body{background:#323232;color:#fff;}
+        label[class^="matter-textfield-"].darktheme>textarea,label[class^="matter-textfield-"].darktheme>input{color:#fff}
+        label[class^="matter-textfield-"].darktheme>textarea:not(:focus):placeholder-shown+span,label[class^="matter-textfield-"].darktheme>input:not(:focus):placeholder-shown+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
+        label[class^="matter-textfield-"].darktheme>textarea:not(:focus)+span,label[class^="matter-textfield-"].darktheme>input:not(:focus)+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label[class^="matter-textfield-"].darktheme{--matter-helper-safari1:rgba(var(--matter-onsurface-rgb,255,255,255),0.38);--matter-helper-safari2:rgba(var(--matter-onsurface-rgb,255,255,255),0.6);--matter-helper-safari3:rgba(var(--matter-onsurface-rgb,255,255,255),0.87)}
+        label.matter-radio.darktheme{color:#fff;}
+        label.matter-radio.darktheme>input:not(:checked){border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label.matter-checkbox.darktheme>input:not(:checked){border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label.matter-checkbox.darktheme>span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
+        label.matter-checkbox.darktheme>input+span:before{background-color:rgb(var(--matter-onsurface-rgb,255,255,255))}
+        label.matter-checkbox.darktheme>input:disabled{border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.38)}
+        label.matter-checkbox.darktheme>input:disabled+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.38)}
+      }
+      @media(prefers-color-scheme:light){label[class^="matter-textfield"]{--matter-helper-theme:#1a73e8}label[class^="matter-"]>input:not(.matter-textfield){--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}label.matter-radio{--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}}
+      label[class^="matter-textfield-"]{margin-bottom: 0.45em}
+      label[class^="matter-textfield-"]>span:not(.matter-tooltip){user-select:none;cursor:text;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      label[class^="matter-textfield-"]>span.matter-tooltip{user-select:none;cursor:default}
+      label.matter-checkbox>input:disabled+span{text-decoration:line-through}
+      .cp_link1{padding:0.1em 0.3em;position:relative;display:inline-block;text-decoration:none;transition:.3s;color:#4cc2ff}.cp_link1::after{position:absolute;bottom:.3em;left:0;content:'';width:100%;height:1px;background-color:#4cc2ff;opacity:0;transition:.3s}.cp_link1:hover::after{height:1%;bottom:-0.5;opacity:1}
+    </style>
+    <script>
+      window.addEventListener('DOMContentLoaded', function(){
+        document.getElementsByClassName("generated_image")[0].addEventListener('load', (e)=> {
+          progress_end();
+        });
+        document.getElementsByClassName("generated_image")[0].addEventListener('error', (e)=> {
+          progress_end();
+          document.getElementsByClassName("error")[0].style.display = "block";
+        });
+      });
+      function generate()
+      {
+        document.getElementsByClassName("error")[0].style.display = "none";
+        progress_start();
+        var makeitaquote_url = "https://makeitaquote.glitch.me/";
+        var icon = document.querySelector(".icon_url").value;
+        var content = encodeURI(document.querySelector(".content").value);
+        var name = encodeURI(document.querySelector(".name").value);
+        var id = encodeURI(document.querySelector(".id").value);
+        if(icon.length!=0)
+          makeitaquote_url += `?icon=${icon}`;
+        if(content.length!=0)
+          makeitaquote_url += `&text=${content}`;
+        else
+          makeitaquote_url += `&text=%20`;
+        if(name.length!=0)
+          makeitaquote_url += `&name=- ${name}`;
+        else
+          makeitaquote_url += `&name=%20`;
+        if(id.length!=0&&id.substring(0,1)!="@")id="@"+id;
+        if(id.length!=0)
+          makeitaquote_url += "&id="+id;
+        else
+          makeitaquote_url += `&id=%20`;
+        document.getElementsByClassName("generated_image")[0].setAttribute("src", makeitaquote_url);
+      }
+      function can_bold(element)
+      {
+        if (element.parentNode.getAttribute("bold") == "possible")
+          return true;
+        return false;
+      }
+      function bold(element)
+      {
+        if (can_bold(element))
+          bold_show();
+        else
+          bold_hide();
+      }
+      function bold_show()
+      {
+        document.getElementsByClassName("bold")[0].parentNode.setAttribute("style","display:block");
+      }
+      function bold_hide()
+      {
+        document.getElementsByClassName("bold")[0].parentNode.setAttribute("style","display:none");
+      }
+      function progress_end()
+      {
+        document.getElementsByClassName("img_load")[0].setAttribute("style","display:none");
+      }
+      function progress_start()
+      {
+        document.getElementsByClassName("img_load")[0].setAttribute("style","display:block");
+      }
+    </script>
+  </head>
+  <body class="defaultfont">
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere">偽物 MAKE IT A QUOTE Web版<br>偽物の MAKE IT A QUOTE の画像を生成します。<br>非公式です。<br>※横画面推奨。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">内容をここに入力します。</span></span>
+      <textarea class="content" placeholder=" " style="width:90vw"></textarea>
+      <span>内容</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">名前をここに入力します。</span></span>
+      <input class="name" placeholder=" " style="width:90vw"></input>
+      <span>名前</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">「@」から始まるユーザー名をここに入力します。</span></span>
+      <input class="id" placeholder=" " style="width:90vw"></input>
+      <span>ユーザー名</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">アイコンのURLをここに入力します。正方形のアイコンをお勧めします。Data URIは使用できません。</span></span>
+      <input class="icon_url" placeholder=" " style="width:90vw"></input>
+      <span>アイコンのURL</span>
+    </label>
+    <div><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="generate()">生成！</button>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <div class="img_load" style="display:none"><progress class="matter-progress-circular"></progress><span class="br"></span></div></div>
+    <img class="generated_image" load="progress_end()" style="max-width:100%;height:auto;border:hidden;">
+    <p class="error" style="word-break:keep-all;overflow-wrap:anywhere;color:#ee2323;display:none;">生成に失敗しました。アイコンのURLが存在するパスを指定しているか、ネットワークに接続されているかを確認してください。</p>
+  </body>
+</html>

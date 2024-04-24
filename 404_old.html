@@ -1,0 +1,55 @@
+<html><head><meta name="robots" content="noindex,nofollow,noarchive"><title>404 Not Found</title><script>
+
+  if (location.href.slice(-1) == '/')
+  {
+    location.href = location.href.replace(/[\/]+$/, "");
+  }
+
+  /*
+   * Config
+   */
+  var redirect_file_name = 'post.html';
+  var parameter_key = 'post_id';
+
+
+  /*
+   * Env
+   */
+  var path_name = window.location.pathname;
+
+
+  /*
+   * Process
+   * (Redirect)
+   */
+  var match_condition = new RegExp(redirect_file_name.replace('.html', '') + '/[a-z0-9-_]+$');
+  if (permalink = path_name.match(match_condition))
+  {
+    location.href = path_name.replace(permalink, '') + redirect_file_name + '?' + parameter_key + '=' + permalink[0].replace(/post\//, '');
+  }
+
+</script><style>
+   @media (prefers-color-scheme: dark) {
+     body {
+       background-color: #323232;
+       color: #fff;
+     }
+     a:link {
+       color: #4cc2ff;
+     }
+     a:visited {
+       color: #881798;
+     }
+   }</style></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>Page Not Found Error.<br>Powered by <a href="https://github.io/" target="_blank">GitHub Pages</a>.</center>
+
+
+
+
+
+
+
+
+</body></html>

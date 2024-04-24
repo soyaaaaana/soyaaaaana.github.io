@@ -1,0 +1,128 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta content="C#でテーマを変更するコードです。" name="description">
+    <title>C#でテーマを変更 - そゃーなのブログ</title>
+    <script src="../../js/path-change.js"></script>
+    <script src="../../js/no-ie.js"></script>
+    <link rel="stylesheet" href="../../css/blog-font.css" type="text/css">
+    <link rel="stylesheet" href="../../css/blog-main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/FontAwesome/all.css" type="text/css">
+    <link rel="stylesheet" href="../../css/prism.css" type="text/css">
+    <script src="../../js/budoux-ja.min.js"></script>
+    <script src="../../js/blog-main.js" defer></script>
+    <script src="../../js/blog-font.js" defer></script>
+    <script src="../../js/prism.js"></script>
+    <script src="../../js/snow.js" defer></script>
+  </head>
+  <body>
+    <budoux-ja>
+      <div class="font_loading defaultfont" style="font-size:1em;padding-bottom:1em;">フォントを読み込んでいます...</div>
+    </budoux-ja>
+    <noscript>
+      <p>このサイトはスクリプトを使用することで正常に動作しています。ですが現在、そのスクリプトが無効にされています。このサイトを閲覧するにはまずスクリプトを許可してください。</p>
+    </noscript>
+    <budoux-ja>
+      <div class="main" style="visibility:hidden;text-align:center;">
+        <div style="font-size:2em;padding-bottom:1em;">そゃーなのブログ</div>
+        <!--<hr style="margin-bottom: 1em;">-->
+        <div style="max-width:75em;text-align:center;margin: 10 auto;">
+          <div>C#でテーマを変更するコード</div>
+          <div>（このコードで変更するテーマはタイトルバーとコンテキストメニューです）</div>
+          <div>注意: このコードはWindowsの標準タイトルバーを使用している場合に限り動作します。</div>
+          <div>参照↓</div>
+          <pre data-label="NativeMethods.cs"><code class="language-csharp">
+using Microsoft.Win32;
+using System;
+using System.Runtime.InteropServices;</code></pre>
+          <div>コード↓</div>
+          <pre data-label="NativeMethods.cs"><code class="language-csharp">
+public static void CheckThemeAndUpdate(IntPtr handle)
+{
+    if ((int)Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Themes\Personalize").GetValue("AppsUseLightTheme") == 0)
+        ChangeTheme(handle, WindowsTheme.Dark);
+    else
+        ChangeTheme(handle, WindowsTheme.Light);
+}
+
+[DllImport("uxtheme.dll", EntryPoint = "#135", SetLastError = true, CharSet = CharSet.Unicode)]
+public static extern int SetPreferredAppMode(int preferredAppMode);
+
+[DllImport("uxtheme.dll", EntryPoint = "#136", SetLastError = true, CharSet = CharSet.Unicode)]
+public static extern void FlushMenuThemes();
+
+[DllImport("dwmapi.dll", CharSet = CharSet.Unicode, SetLastError = true)]
+public static extern int DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE attribute, ref int pvAttribute, uint cbAttribute);
+
+public static void ChangeTitlebarTheme(IntPtr handle, WindowsTheme windowsTheme)
+{
+    if (windowsTheme == WindowsTheme.Dark)
+    {
+        var value = 1;
+        DwmSetWindowAttribute(handle, DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref value, (uint)Marshal.SizeOf(typeof(int)));
+    }
+    else if (windowsTheme == WindowsTheme.Light)
+    {
+        var value = 0;
+        DwmSetWindowAttribute(handle, DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, ref value, (uint)Marshal.SizeOf(typeof(int)));
+    }
+}
+
+public static void ChangeContextMenuTheme(WindowsTheme windowsTheme)
+{
+    if (windowsTheme == WindowsTheme.Dark)
+    {
+        SetPreferredAppMode(2);
+    }
+    else if (windowsTheme == WindowsTheme.Light)
+    {
+        SetPreferredAppMode(3);
+    }
+    FlushMenuThemes();
+}
+
+public enum WindowsTheme
+{
+    Dark = 2,
+    Light = 1,
+}
+
+public static void ChangeTheme(IntPtr handle, WindowsTheme windowsTheme)
+{
+    ChangeTitlebarTheme(handle, windowsTheme);
+    ChangeContextMenuTheme(windowsTheme);
+}</code></pre>
+          <div>使い方↓</div>
+          <pre data-label="NativeMethods.cs"><code class="language-csharp">
+// ライトテーマにする場合
+var theme = WindowsTheme.Light;
+// ダークテーマにする場合
+var theme = WindowsTheme.Dark;
+
+// コンテキストメニューのテーマを変更
+ChangeContextMenuTheme(theme);
+
+// タイトルバーのテーマを変更
+ChangeTitlebarTheme(this.Handle, theme);
+
+// まとめて変更
+ChangeTheme(this.Handle, theme);
+
+
+// テーマを設定に合わせて変更
+CheckThemeAndUpdate(this.Handle);
+
+
+// テーマ設定が変更されたときに自動で変更
+CheckThemeAndUpdate(this.Handle);
+SystemEvents.UserPreferenceChanged += (_, E) =>
+{
+    if (E.Category == UserPreferenceCategory.General)
+        CheckThemeAndUpdate(this.Handle);
+};</code></pre>
+        </div>
+      </div>
+    </budoux-ja>
+  </body>
+</html>

@@ -1,0 +1,121 @@
+@import url("./defaultfont.css");
+body {
+  font-family: 'HuiFontP', 'NotoColorEmoji';
+  background-color: #323232;
+  color: #fff;
+}
+.center {
+  width:100%;height:100%;margin:0;padding:0;display:table;
+}
+.center>p {
+  width:100%;height:100%;margin:0;padding:0;display:table-cell;text-align:center;vertical-align:middle;
+}
+
+.html_card,
+.ogp_card {
+  border: 1px solid #cccccc;
+  border-radius: 6px;
+  padding: .5em;
+}
+.html_card p,
+.ogp_card p {
+  margin: .5em 0 .5em 0;
+  line-height: 1.2;
+}
+.html_card a,
+.ogp_card a {
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+}
+.ogp_card img {
+  float: left;
+  margin: .5em 1em .5em .5em;
+  border-radius: 6px;
+  width: 100px;
+  height: auto;
+}
+.ogp_card p.title {
+  margin-left: 120px;
+}
+.ogp_card p.copy {
+  margin-left: 0px;
+}
+.ogp_card p.card_bt {
+  margin-left: calc(120px + .3em);
+}
+.html_card p.card_bt,
+.ogp_card p.card_bt {
+  text-align: right;
+  margin-top: -10px;
+}
+.html_card p.title a,
+.ogp_card p.title a {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #da3c41;
+}
+.html_card p.copy a,
+.ogp_card p.copy a {
+  font-size: .8rem;
+  margin-bottom: 0em;
+  text-decoration: underline;
+  color: #666666;
+  display: block;
+}
+.html_card p.copy a::before,
+.ogp_card p.copy a::before {
+  font-size: .9rem;
+  font-family: 'FontAwesome';
+  content: '\f0c1';
+  color: #da3c41;
+  display: inline-block;
+  width: 1.2rem;
+}
+.html_card p.card_bt a,
+.ogp_card p.card_bt a {
+  font-size: .9rem;
+  background: #da3c41;
+  color: #ffffff;
+  padding: .5em;
+  border-radius: 4px;
+  box-shadow:0px 0px 3px 0px #cccccc;
+}
+.html_card p.card_bt a::before,
+.ogp_card p.card_bt a::before {
+  font-size: 1rem;
+  font-family: 'FontAwesome';
+  content: '\f14c';
+  display: inline-block;
+  width: 1rem;
+  padding-right: .5rem;
+}
+.html_card p.card_bt a:hover,
+.ogp_card p.card_bt a:hover {
+  box-shadow:0px 0px 6px 0px #801b1e inset;
+}
+
+.cp_link1 {
+  padding: 0.1em 0.3em;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  transition: .3s;
+  color: #4cc2ff;
+}
+.cp_link1::after {
+  position: absolute;
+  bottom: .3em;
+  left: 0;
+  content: '';
+  width: 100%;
+  height: 1px;
+  background-color: #4cc2ff;
+  opacity: 0;
+  transition: .3s;
+}
+.cp_link1:hover::after {
+  height: 1%;
+  bottom: -0.5;
+  opacity: 1;
+}

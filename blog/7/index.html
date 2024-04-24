@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <script type="module">import{loadDefaultJapaneseParser}from"../../js/BudouX/index.js";window.loadDefaultJapaneseParser=loadDefaultJapaneseParser;import{loadDefaultSimplifiedChineseParser}from"../../js/BudouX/index.js";window.loadDefaultSimplifiedChineseParser=loadDefaultSimplifiedChineseParser;import{loadDefaultTraditionalChineseParser}from"../../js/BudouX/index.js";window.loadDefaultTraditionalChineseParser=loadDefaultTraditionalChineseParser;import{loadDefaultThaiParser}from"../../js/BudouX/index.js";window.loadDefaultThaiParser=loadDefaultThaiParser;</script>
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <style>
+      .br::before{content:"\A";white-space:pre;}
+      @media(prefers-color-scheme:dark){
+        body{background:#323232;color:white;}
+        label[class^="matter-textfield-"].darktheme>textarea{color:white}
+        label[class^="matter-textfield-"].darktheme>textarea:not(:focus):placeholder-shown+span,label[class^="matter-textfield-"].darktheme>input:not(:focus):placeholder-shown+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
+        label[class^="matter-textfield-"].darktheme>textarea:not(:focus)+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label[class^="matter-textfield-"].darktheme{--matter-helper-safari1:rgba(var(--matter-onsurface-rgb,255,255,255),0.38);--matter-helper-safari2:rgba(var(--matter-onsurface-rgb,255,255,255),0.6);--matter-helper-safari3:rgba(var(--matter-onsurface-rgb,255,255,255),0.87)}
+      }
+      @media(prefers-color-scheme:light){label[class^="matter-textfield-"]{--matter-helper-theme:#1a73e8}}
+      label[class^="matter-textfield-"]>span:not(.matter-tooltip){user-select:none;cursor:text;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      label[class^="matter-textfield-"]>span.matter-tooltip{user-select:none;cursor:default}
+      button[class^="matter-button-"]{background:#1a73e8}
+    </style>
+    <script>
+      var parser = null;
+      window.addEventListener('DOMContentLoaded', function(){
+        if (location.protocol != "file:") {
+          parserInit();
+          return;
+        }
+        if (confirm("本サイトはBudouXを使用するためにJavaScriptモジュールを使用しています。\nJavaScriptモジュールは読み込みをローカルで実行すると通常はCORSエラーが発生し、実行できません。\n拡張機能などを使用してCORSエラーを回避できる場合は「OK」を押して続行してください。\nCORSエラーを回避できないなどの場合はサーバーで実行してください。")) {
+          parserInit();
+          return;
+        }
+        document.getElementsByClassName("budoux-before")[0].setAttribute("disabled","");
+        document.getElementsByClassName("budoux-after")[0].setAttribute("disabled","");
+        document.getElementsByClassName("budoux-after-twitter")[0].setAttribute("disabled","");
+      });
+      function budoux() {
+        if (parser == null)
+          return;
+        document.getElementsByClassName("budoux-after")[0].value = parser.parse(document.getElementsByClassName("budoux-before")[0].value).join("\u200B");
+        var result = document.getElementsByClassName("budoux-after")[0].value;
+        result = result.replace(/\u200B{2,}/g, "\u200B");
+        const regex = /(?!\u200B)./g;
+        result = result.replace(regex, (match, index) => {
+          return match + "\u200D";
+        });
+        document.getElementsByClassName("budoux-after-twitter")[0].value = result.replace(/\u200D\u200B/g, "").replace(/\u200D$/g,"");
+      }
+      function parserInit()
+      {
+        parser = loadDefaultJapaneseParser();
+        document.getElementsByClassName("site-message")[0].innerHTML = parser.parse(document.getElementsByClassName("site-message")[0].innerHTML).join("\u200B");
+      }
+    </script>
+  </head>
+  <body>
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere">このサイトは横画面向けに開発されています。縦画面では表示上の乱れが発生する可能性があります。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">BudouXへ変換するテキストを入力します。</span></span>
+      <textarea class="budoux-before" placeholder=" " style="width:75vw;height:20vh;max-width:99vw;max-height:89vh;" oninput="budoux()"></textarea>
+      <span>原文</span>
+    </label><span class="br"></span>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">BudouXへ変換したテキストがここに表示されます。</span></span>
+      <textarea class="budoux-after" readonly="true" placeholder=" " style="width:75vw;height:20vh;max-width:99vw;max-height:89vh;"></textarea>
+      <span>BudouXへ変換したテキストがここに表示されます。</span>
+    </label><span class="br"></span>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">BudouXをTwitterでも使用できるように変換されたテキストがここに表示されます。</span></span>
+      <textarea class="budoux-after-twitter" readonly="true" placeholder=" " style="width:75vw;height:20vh;max-width:99vw;max-height:89vh;"></textarea>
+      <span>BudouXをTwitterでも使用できるように変換されたテキストがここに表示されます。</span>
+    </label><span class="br"></span><span class="br"></span><span class="br"></span>
+  </body>
+</html>

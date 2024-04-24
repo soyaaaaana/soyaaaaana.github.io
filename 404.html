@@ -1,0 +1,52 @@
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><meta name="robots" content="noindex,nofollow,noarchive"><title>404 Not Found</title><script id="path_change"></script><script id="budoux-ja-script"></script><script>
+
+  var path = location.pathname;
+  for (var i=0;i<window.location.pathname.replace(/^[\/]/,"").split(/[]*\//).length;i++)
+  {
+    path+="/..";
+  }
+  document.getElementById("path_change").src=path+"/js/path-change-404.js"
+
+  /*
+   * Config
+   */
+  var redirect_file_name = 'post.html';
+  var parameter_key = 'post_id';
+
+
+  /*
+   * Env
+   */
+  var path_name = window.location.pathname;
+
+
+  /*
+   * Process
+   * (Redirect)
+   */
+  var match_condition = new RegExp(redirect_file_name.replace('.html', '') + '/[a-z0-9-_]+$');
+  if (permalink = path_name.match(match_condition))
+  {
+    location.href = path_name.replace(permalink, '') + redirect_file_name + '?' + parameter_key + '=' + permalink[0].replace(/post\//, '');
+  }
+  document.getElementById("budoux-ja-script").src=path+"/js/budoux-ja.min.js";
+
+</script><style>
+    @font-face {
+      font-family: "HuiFontP";
+      src: url(path + "/webfonts/HuiFontP29.ttf") format("truetype");
+    }
+    body {
+      font-family: 'HuiFontP';
+      background-color: #323232;
+      color: #fff;
+    }</style></head>
+<body>
+<budoux-ja>
+<div style="text-align:center;font-size:2em;padding-bottom:1em;padding-top:1em">404 Not Found</div>
+<div style="text-align:center;font-size:2em;padding-bottom:1em;padding-top:1em">サイトが見つかりません...削除された可能性があります。</div>
+</budoux-ja>
+<script defer>
+const m=new Date().getMonth()+1;if(m>=3&&m<=5){season="Spring";}else if(m>=6&&m<=8){season="Summer";}else if(m>=9&&m<=11){season="Fall";}else{season="Winter";}if(season=="Winter"){var embedimSnow=document.getElementById("embedim--snow");if(!embedimSnow){function embRand(a,b){return Math.floor(Math.random()*(b-a+1))+a}var embCSS='.embedim-snow{position: absolute;width: 10px;height: 10px;background: white;border-radius: 50%;margin-top:-10px}';var embHTML='';for(i=1;i<200;i++){embHTML+='<i class="embedim-snow"></i>';var rndX=(embRand(0,1000000)*0.0001),rndO=embRand(-100000,100000)*0.0001,rndT=(embRand(3,8)*10).toFixed(2),rndS=(embRand(0,10000)*0.0001).toFixed(2);embCSS+='.embedim-snow:nth-child('+i+'){'+'opacity:'+(embRand(1,10000)*0.0001).toFixed(2)+';'+'transform:translate('+rndX.toFixed(2)+'vw,-10px) scale('+rndS+');'+'animation:fall-'+i+' '+embRand(10,30)+'s -'+embRand(0,30)+'s linear infinite'+'}'+'@keyframes fall-'+i+'{'+rndT+'%{'+'transform:translate('+(rndX+rndO).toFixed(2)+'vw,'+rndT+'vh) scale('+rndS+')'+'}'+'to{'+'transform:translate('+(rndX+(rndO/2)).toFixed(2)+'vw, 105vh) scale('+rndS+')'+'}'+'}'}embedimSnow=document.createElement('div');embedimSnow.id='embedim--snow';embedimSnow.innerHTML='<style>#embedim--snow{position:fixed;left:0;top:0;bottom:0;width:100vw;height:100vh;overflow:hidden;z-index:9999999;pointer-events:none}'+embCSS+'</style>'+embHTML;document.body.appendChild(embedimSnow)}}
+</script>
+</body></html>

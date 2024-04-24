@@ -1,0 +1,204 @@
+<!--
+
+
+
+
+
+
+
+
+この場所は開発者に
+┳━┓ 見守られています
+┻┳┫ ∧∧
+┳┻┫－ω－)
+┻┳┫ ∧,,∧ ∧,,∧
+┳┻┫(＾ω＾)・ω・)
+┻┳┫∧,,∧∧,∧.つ
+┳┻┫・ω・)ω・)
+┻┳┫　⊂ノ  Oノ
+┳┻┫ －U　し-J
+
+
+
+
+
+
+
+
+（いまあなたの心の中に
+　　　　　　呟いています。
+　　　　　　　このコードを覗かないでください！！！）
+
+
+
+
+
+
+
+
+（超雑で適当に作られたサイトのコードなんか見てもなんもないですよ！！！）
+
+
+
+
+
+
+
+
+（いますぐ閉じましょう！
+　　　　　ここはあなたが来ていい場所ではありません！！！）
+
+
+
+
+
+
+
+
+（「来ていい場所ではない」とはいったものの...
+　　　　　　　　　　本当は雑なコードが見られたくないだけです）
+
+
+
+
+
+
+
+
+（ちなみにこのサイトは「matter.css」というGoogleが使ってるようなあの見た目のを使っています。
+　　　　　　　　　　CSSで困っているとき、Googleで「matter.css -matter.js」と検索してみてはいかがですか？
+　　　　　　　　　　　　　　　　　　GitHubのMatterのリポジトリページが見つかりますよ。あのGoogleと一緒のものを使えるなんて...最高ですよね！？）
+
+
+
+
+
+
+
+
+（ちなみに「matter.css」はデフォルトでダークテーマに対応していないので、
+　　　　　　　　　　　　　　　　このサイトではCSS付け加えて無理やり対応させてます）
+-->
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>四分位数計算機</title>
+    <meta content="箱ひげ図に必要な情報を計算します。" name="description">
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../../css/defaultfont.css">
+    <style>
+      .br::before{content:"\A";white-space:pre;}
+      @media(prefers-color-scheme:dark){
+        body{background:#323232;color:#fff;}
+        label[class^="matter-textfield-"].darktheme>textarea,label[class^="matter-textfield-"].darktheme>input{color:#fff}
+        label[class^="matter-textfield-"].darktheme>textarea:not(:focus):placeholder-shown+span,label[class^="matter-textfield-"].darktheme>input:not(:focus):placeholder-shown+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
+        label[class^="matter-textfield-"].darktheme>textarea:not(:focus)+span,label[class^="matter-textfield-"].darktheme>input:not(:focus)+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label[class^="matter-textfield-"].darktheme{--matter-helper-safari1:rgba(var(--matter-onsurface-rgb,255,255,255),0.38);--matter-helper-safari2:rgba(var(--matter-onsurface-rgb,255,255,255),0.6);--matter-helper-safari3:rgba(var(--matter-onsurface-rgb,255,255,255),0.87)}
+        label.matter-radio.darktheme{color:#fff;}
+        label.matter-radio.darktheme>input:not(:checked){border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label.matter-checkbox.darktheme>input:not(:checked){border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
+        label.matter-checkbox.darktheme>span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
+        label.matter-checkbox.darktheme>input+span:before{background-color:rgb(var(--matter-onsurface-rgb,255,255,255))}
+        label.matter-checkbox.darktheme>input:disabled{border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.38)}
+        label.matter-checkbox.darktheme>input:disabled+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.38)}
+      }
+      @media(prefers-color-scheme:light){label[class^="matter-textfield"]{--matter-helper-theme:#1a73e8}label[class^="matter-"]>input:not(.matter-textfield){--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}label.matter-radio{--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}}
+      label[class^="matter-textfield-"]{margin-bottom: 0.45em}
+      label[class^="matter-textfield-"]>span:not(.matter-tooltip){user-select:none;cursor:text;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      label[class^="matter-textfield-"]>span.matter-tooltip{user-select:none;cursor:default}
+      label.matter-checkbox>input:disabled+span{text-decoration:line-through}
+      .cp_link1{padding:0.1em 0.3em;position:relative;display:inline-block;text-decoration:none;transition:.3s;color:#4cc2ff}.cp_link1::after{position:absolute;bottom:.3em;left:0;content:'';width:100%;height:1px;background-color:#4cc2ff;opacity:0;transition:.3s}.cp_link1:hover::after{height:1%;bottom:-0.5;opacity:1}
+    </style>
+    <script>
+      var calc = function() {
+        var v=document.querySelector(".input_value").value.split(",");
+        var r=true;
+        v.forEach(e=>{if(r==false)return;r=isFinite(e);});
+        if(r==false)return;
+        v=v.map(Number);
+        v.sort((x,y)=>x-y);
+        var n=v.length;
+        var s=n/2;
+        var o=v.slice(0,s);
+        if(v.length%2!==0)s+=1;
+        var t=v.slice(s,n);
+        var h=(o.length/2)|0;
+        o=(o.length%2)?o[h]:(o[h-1]+o[h])/2;
+        h=(t.length/2)|0;
+        t=(t.length%2)?t[h]:(t[h-1]+t[h])/2;
+        /*
+        var i=Math.floor((n/4)+1);
+        var o=v[i-1];
+        */
+        i=Math.floor(n/2);
+        var c=(n%2===0)?(v[i-1]+v[i])/2:v[i];
+        /*
+        i=Math.floor((3*n/4)+1);
+        var t=v[i-1];
+        */
+        /*
+        var l=(v.length/2)|0;
+        var c=0;
+        var s=((v.slice(0,l+1).length/2)-1);
+        console.log(s)
+        var m=!Number.isInteger(s);
+        var o=0;
+        var e=((v.slice(l+1).length/2)-1);
+        console.log(v.slice(l+1))
+        var t=0;
+        if(m){s+=0.5;e+=0.5}
+        if(v.length%2===0){c=(v[l-1]+v[l])/2;o=(v[s-1]+v[s])/2+1;t=(v[l+e-1]+v[l+e])/2+1.5}else {c=v[l];o=v[s];t=v[l+e+1]} // if 偶数 else 奇数
+        if(m){o-=0.5;t-=0.5}
+        */
+        var e=document.querySelectorAll(".result");
+        e[0].value=v[0];
+        e[1].value=o;
+        e[2].value=c;
+        e[3].value=t;
+        e[4].value=v[v.length-1];
+      }
+    </script>
+  </head>
+  <body>
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere">四分位数計算機<br>箱ひげ図の作図に必要な四分位数を計算します。<f style="font-size:8px;display:none">正確かどうかなんて知らないです。多分正確です。</f></p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">四分位数を計算する元の数字を入力してください。区切り記号は「,（コンマ）」です。</span></span>
+      <input class="input_value" placeholder=" " style="width:90vw"></input>
+      <span>四分位数を計算する元の数字</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="calc()">計算</button>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">最小値がここに表示されます</span></span>
+      <input class="result" placeholder=" " style="width:90vw" readonly></input>
+      <span>最小値</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">第一四分位数がここに表示されます</span></span>
+      <input class="result" placeholder=" " style="width:90vw" readonly></input>
+      <span>第一四分位数</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">第二四分位数がここに表示されます</span></span>
+      <input class="result" placeholder=" " style="width:90vw" readonly></input>
+      <span>第二四分位数</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">第三四分位数がここに表示されます</span></span>
+      <input class="result" placeholder=" " style="width:90vw" readonly></input>
+      <span>第三四分位数</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">最大値がここに表示されます</span></span>
+      <input class="result" placeholder=" " style="width:90vw" readonly></input>
+      <span>最大値</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+  </body>
+</html>

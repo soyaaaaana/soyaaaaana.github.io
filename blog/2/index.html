@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta content="ユーザーエージェントやプラットフォームを調べることができるツールです。" name="description">
+    <title>ユーザーエージェント ツール - そゃーなのブログ</title>
+    <script src="../../js/path-change.js"></script>
+    <script src="../../js/no-ie.js"></script>
+    <link rel="stylesheet" href="../../css/blog-font.css" type="text/css">
+    <link rel="stylesheet" href="../../css/blog-main.css" type="text/css">
+    <link rel="stylesheet" href="../../css/FontAwesome/all.css" type="text/css">
+    <script src="../../js/budoux-ja.min.js"></script>
+    <script src="../../js/blog-main.js" defer></script>
+    <script src="../../js/blog-font.js" defer></script>
+    <script src="../../js/snow.js" defer></script>
+        <script>
+            document.fonts.ready.then(function(fontFaceSet){
+              console.info({fontFaceSet});
+              document.getElementsByClassName("main")[0].style.visibility="visible";document.getElementsByClassName("font_loading")[0].style.display="none";
+              document.getElementsByClassName("userAgent")[0].innerText = "UserAgent: " + navigator.userAgent + "\r\nPlatform: " + navigator.platform + "\r\nOS:";
+              var ua = window.navigator.userAgent.toLowerCase();
+              if(ua.indexOf("windows nt") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " Microsoft Windows"
+              } else if(ua.indexOf("windows phone") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " Windows Phone";
+              } else if(ua.indexOf("android") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " Android";
+              } else if(ua.indexOf("iphone") !== -1 || ua.indexOf("ipad") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " iOS";
+              } else if(ua.indexOf("mac os x") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " macOS";
+              } else if(ua.indexOf("nintendo wii") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " Nintendo Wii";
+              } else if(ua.indexOf("nintendo gameboy") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " Nintendo GameBoy";
+              } else if(ua.indexOf("playstation portable") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " PlayStation Portable";
+              } else if(ua.indexOf("playstation vita") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " PlayStation Vita";
+              } else if(ua.indexOf("ps2") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " PlayStation 2";
+              } else if(ua.indexOf("playstation 3") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " PlayStation 3";
+              } else if(ua.indexOf("playstation 4") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " PlayStation 4";
+              } else if(ua.indexOf("playstation 5") !== -1) {
+                document.getElementsByClassName("userAgent")[0].innerText += " PlayStation 5";
+              } else {
+                document.getElementsByClassName("userAgent")[0].innerText += " Unknown";
+              }
+            });
+    </script>
+  </head>
+  <body>
+    <budoux-ja>
+      <div class="font_loading defaultfont" style="font-size:1em;padding-bottom:1em;">フォントを読み込んでいます...</div>
+    </budoux-ja>
+    <noscript>
+      <p>このサイトはスクリプトを使用することで正常に動作しています。ですが現在、そのスクリプトが無効にされています。このサイトを閲覧するにはまずスクリプトを許可してください。</p>
+    </noscript>
+    <budoux-ja>
+      <div class="main" style="visibility:hidden;">
+        <div style="text-align:center;font-size:2em;padding-bottom:1em;">そゃーなのブログ</div>
+        <!--<hr style="margin-bottom: 1em;">-->
+        <div style="text-align:center;"><p class="userAgent"></p></div>
+      </div>
+    </budoux-ja>
+  </body>
+</html>
