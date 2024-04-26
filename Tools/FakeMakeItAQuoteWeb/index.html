@@ -68,7 +68,7 @@
           makeitaquote_url += `&name=- ${name}`;
         else
           makeitaquote_url += `&name=%20`;
-        if(id.length!=0&&id.substring(0,1)!="@")id="@"+id;
+        if(id.length!=0&&id.substring(0,3)!="%40")id="%40"+id;
         if(id.length!=0)
           makeitaquote_url += "&id="+id;
         else
