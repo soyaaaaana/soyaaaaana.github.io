@@ -46,9 +46,9 @@
         progress_start();
         var makeitaquote_url = "https://makeitaquote.glitch.me/";
         var icon = document.querySelector(".icon_url").value;
-        var content = encodeURI(document.querySelector(".content").value);
-        var name = encodeURI(document.querySelector(".name").value);
-        var id = encodeURI(document.querySelector(".id").value);
+        var content = encodeURIComponent(document.querySelector(".content").value);
+        var name = encodeURIComponent(document.querySelector(".name").value);
+        var id = encodeURIComponent(document.querySelector(".id").value);
         if(icon.length!=0)
           makeitaquote_url += `?icon=${icon}`;
         if(content.length!=0)
