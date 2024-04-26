@@ -32,6 +32,15 @@
     </style>
     <script>
       window.addEventListener('DOMContentLoaded', function(){
+        var params = new URL(location.href).searchParams;
+        if (params.has("icon"))
+          document.querySelector(".icon_url").value=params.get("icon");
+        if (params.has("text"))
+          decodeURIComponent(document.querySelector(".content").value=params.get("text"));
+        if (params.has("name"))
+          decodeURIComponent(document.querySelector(".name").value=params.get("name"));
+        if (params.has("id"))
+          decodeURIComponent(document.querySelector(".id").value=params.get("id"));
         document.getElementsByClassName("generated_image")[0].addEventListener('load', (e)=> {
           progress_end();
         });
@@ -66,26 +75,15 @@
           makeitaquote_url += `&id=%20`;
         document.getElementsByClassName("generated_image")[0].setAttribute("src", makeitaquote_url);
       }
-      function can_bold(element)
+      function copy_url()
       {
-        if (element.parentNode.getAttribute("bold") == "possible")
-          return true;
-        return false;
-      }
-      function bold(element)
-      {
-        if (can_bold(element))
-          bold_show();
-        else
-          bold_hide();
-      }
-      function bold_show()
-      {
-        document.getElementsByClassName("bold")[0].parentNode.setAttribute("style","display:block");
-      }
-      function bold_hide()
-      {
-        document.getElementsByClassName("bold")[0].parentNode.setAttribute("style","display:none");
+        var area = document.createElement("textarea");
+        area.textContent = `${location.href}?icon=${document.querySelector(".icon_url").value}&text=${encodeURIComponent(document.querySelector(".content").value)}&name=${encodeURIComponent(document.querySelector(".name").value)}&id=${encodeURIComponent(document.querySelector(".id").value)}`;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+        alert("コピーしました！");
       }
       function progress_end()
       {
@@ -130,8 +128,10 @@
     <div><span class="br"></span></div>
     <button class="matter-button-contained" onclick="generate()">生成！</button>
     <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
-    <div class="img_load" style="display:none"><progress class="matter-progress-circular"></progress><span class="br"></span></div></div>
+    <div class="img_load" style="display:none"><progress class="matter-progress-circular"></progress><span class="br"></span></div>
     <img class="generated_image" load="progress_end()" style="max-width:100%;height:auto;border:hidden;">
     <p class="error" style="word-break:keep-all;overflow-wrap:anywhere;color:#ee2323;display:none;">生成に失敗しました。アイコンのURLが存在するパスを指定しているか、ネットワークに接続されているかを確認してください。</p>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="copy_url()">このサイトのURLを現在の状態を維持したままコピー</button>
   </body>
 </html>
