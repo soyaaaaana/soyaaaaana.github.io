@@ -34,7 +34,7 @@
       window.addEventListener('DOMContentLoaded', function(){
         var params = new URL(location.href).searchParams;
         if (params.has("icon"))
-          document.querySelector(".icon_url").value=params.get("icon");
+          decodeURIComponent(document.querySelector(".icon_url").value=params.get("icon"));
         if (params.has("text"))
           decodeURIComponent(document.querySelector(".content").value=params.get("text"));
         if (params.has("name"))
@@ -54,7 +54,7 @@
         document.getElementsByClassName("error")[0].style.display = "none";
         progress_start();
         var makeitaquote_url = "https://makeitaquote.glitch.me/";
-        var icon = document.querySelector(".icon_url").value;
+        var icon = encodeURIComponent(document.querySelector(".icon_url").value);
         var content = encodeURIComponent(document.querySelector(".content").value);
         var name = encodeURIComponent(document.querySelector(".name").value);
         var id = encodeURIComponent(document.querySelector(".id").value);
