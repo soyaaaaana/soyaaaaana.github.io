@@ -58,7 +58,7 @@
       function copy_url()
       {
         var area = document.createElement("textarea");
-        area.textContent = `${location.href}?icon=${document.querySelector(".icon_url").value}&text=${encodeURIComponent(document.querySelector(".content").value)}&name=${encodeURIComponent(document.querySelector(".name").value)}&id=${encodeURIComponent(document.querySelector(".id").value)}`;
+        area.textContent = `${location.href}?icon=${encodeURIComponent(document.querySelector(".icon_url").value)}&text=${encodeURIComponent(document.querySelector(".content").value)}&name=${encodeURIComponent(document.querySelector(".name").value)}&id=${encodeURIComponent(document.querySelector(".id").value)}`;
         document.body.appendChild(area);
         area.select();
         document.execCommand("copy");
