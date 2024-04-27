@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>BudouXに変換</title>
+    <meta content="BudouXへ変換するWebツールです。" name="description">
+    <script src="../../js/path-change.js"></script>
+    <script src="../../js/no-ie.js"></script>
+    <script type="module">import{loadDefaultJapaneseParser}from"../../js/BudouX/index.js";window.loadDefaultJapaneseParser=loadDefaultJapaneseParser;import{loadDefaultSimplifiedChineseParser}from"../../js/BudouX/index.js";window.loadDefaultSimplifiedChineseParser=loadDefaultSimplifiedChineseParser;import{loadDefaultTraditionalChineseParser}from"../../js/BudouX/index.js";window.loadDefaultTraditionalChineseParser=loadDefaultTraditionalChineseParser;import{loadDefaultThaiParser}from"../../js/BudouX/index.js";window.loadDefaultThaiParser=loadDefaultThaiParser;</script>
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../../css/matter-darktheme.css">
+    <link rel="stylesheet" href="../../css/tools-basic.css">
+    <script>
+      var parser = null;
+      window.addEventListener('DOMContentLoaded', function(){
+        if (location.protocol != "file:") {
+          parserInit();
+          return;
+        }
+        if (confirm("本サイトはBudouXを使用するためにJavaScriptモジュールを使用しています。\nJavaScriptモジュールは読み込みをローカルで実行すると通常はCORSエラーが発生し、実行できません。\n拡張機能などを使用してCORSエラーを回避できる場合は「OK」を押して続行してください。\nCORSエラーを回避できないなどの場合はサーバーで実行してください。")) {
+          parserInit();
+          return;
+        }
+        document.getElementsByClassName("budoux-before")[0].setAttribute("disabled","");
+        document.getElementsByClassName("budoux-after")[0].setAttribute("disabled","");
+        document.getElementsByClassName("budoux-after-twitter")[0].setAttribute("disabled","");
+      });
+      function budoux() {
+        if (parser == null)
+          return;
+        document.getElementsByClassName("budoux-after")[0].value = parser.parse(document.getElementsByClassName("budoux-before")[0].value).join("\u200B");
+        var result = document.getElementsByClassName("budoux-after")[0].value;
+        result = result.replace(/\u200B{2,}/g, "\u200B");
+        const regex = /(?!\u200B)./g;
+        result = result.replace(regex, (match, index) => {
+          return match + "\u200D";
+        });
+        document.getElementsByClassName("budoux-after-twitter")[0].value = result.replace(/\u200D\u200B/g, "").replace(/\u200D$/g,"");
+      }
+      function parserInit()
+      {
+        parser = loadDefaultJapaneseParser();
+        document.getElementsByClassName("site-message")[0].innerHTML = parser.parse(document.getElementsByClassName("site-message")[0].innerHTML).join("\u200B");
+      }
+    </script>
+  </head>
+  <body>
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:22.5px;margin-bottom:-0.75em">BudouXへ変換</div><br>BudouXに変換します。<br>※このサイトは横画面向けに開発されています。縦画面では表示上の乱れが発生する可能性があります。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">BudouXへ変換するテキストを入力します。</span></span>
+      <textarea class="budoux-before" placeholder=" " style="width:75vw;height:20vh;max-width:99vw;max-height:89vh;" oninput="budoux()"></textarea>
+      <span>原文</span>
+    </label><span class="br"></span>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">BudouXへ変換したテキストがここに表示されます。</span></span>
+      <textarea class="budoux-after" readonly="true" placeholder=" " style="width:75vw;height:20vh;max-width:99vw;max-height:89vh;"></textarea>
+      <span>BudouXへ変換したテキストがここに表示されます。</span>
+    </label><span class="br"></span>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">BudouXをその他の場所でも使用できるように変換されたテキストがここに表示されます。</span></span>
+      <textarea class="budoux-after-twitter" readonly="true" placeholder=" " style="width:75vw;height:20vh;max-width:99vw;max-height:89vh;"></textarea>
+      <span>BudouXをその他の場所でも使用できるように変換されたテキストがここに表示されます。</span>
+    </label><span class="br"></span><span class="br"></span><span class="br"></span>
+  </body>
+</html>
