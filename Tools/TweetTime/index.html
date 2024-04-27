@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ツイート時刻計算</title>
+    <meta content="ツイートした時刻をミリ秒単位で計算して求めます。" name="description">
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../../css/matter-darktheme.css">
+    <link rel="stylesheet" href="../../css/tools-basic.css">
+    <script>
+      function calc()
+      {
+        var url = document.querySelector(".tweet").value;
+        var reg = url.match(/status\/(\d{18,19})/);
+        var raw = reg[1];
+        var time = Math.floor(raw/4194304) + 1288834974657;
+        var msec = time % 1000;
+		    if(msec<10)msec = "00"+msec;
+		    else if(msec<100)msec = "0"+msec;
+        var date = new Date(time);
+        document.querySelector(".result").innerText = "ツイートした時刻: " + date.getHours() + '時' + date.getMinutes() + '分' + date.getSeconds() + '秒' + msec;
+        document.querySelector(".result").style.display = "block";
+      }
+    </script>
+  </head>
+  <body class="defaultfont">
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:20px;margin-bottom:-0.75em">ツイート時刻計算</div><br>ツイートした時刻を計算して求めます。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4">ツイートのURLをここに入力します。</span></span>
+      <input class="tweet" placeholder=" " style="width:90vw"></input>
+      <span>ツイートのURL</span>
+    </label>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="calc()">計算</button>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <p class="result" style="word-break:keep-all;overflow-wrap:anywhere;display:none"></p>
+  </body>
+</html>
