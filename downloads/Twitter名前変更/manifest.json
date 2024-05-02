@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Twitter名前変更",
+  "version": "1.0.0",
+  "description": "他の人のTwitterのプロフィールの名前を設定した値に変更します。",
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*"],
+      "js": ["content-script.js"]
+    }
+  ],
+  "permissions": [
+    "storage"
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}
