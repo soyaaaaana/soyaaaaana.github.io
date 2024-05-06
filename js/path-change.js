@@ -3,7 +3,7 @@ if  (location.protocol!="file:")
   var path = location.href;
   var path2 = window.location.pathname.split("/");
   var regex = /index(\.html)?$/;
-  var regex2 = /(\.html)?$/;
+  var regex2 = /\.html$/;
   var changed = false;
   if (path2[path2.length-1].match(regex))
   {
