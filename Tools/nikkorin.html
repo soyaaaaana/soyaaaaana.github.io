@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>nikkorin Web版</title>
+    <meta content="nikkorin の画像を生成するサイトです。" name="description">
+    <script src="../js/path-change.js"></script>
+    <script src="../js/no-ie.js"></script>
+    <link rel="stylesheet" href="../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../css/matter-darktheme.css">
+    <link rel="stylesheet" href="../css/tools-basic.css">
+    <!--<script type="module">import{parseFont}from'./canvas.js';window.parseFont=parseFont;</script>-->
+    <script>
+      window.addEventListener('DOMContentLoaded', function(){
+        var params = new URL(location.href).searchParams;
+        if (params.has("icon"))
+          decodeURIComponent(document.querySelector(".icon_url").value=params.get("icon"));
+        if (params.has("text"))
+          decodeURIComponent(document.querySelector(".content").value=params.get("text"));
+        if (params.has("name"))
+          decodeURIComponent(document.querySelector(".name").value=params.get("name"));
+        if (params.has("id"))
+          decodeURIComponent(document.querySelector(".id").value=params.get("id"));
+        document.getElementsByClassName("generated_image")[0].addEventListener('load', (e)=> {
+          progress_end();
+        });
+        document.getElementsByClassName("generated_image")[0].addEventListener('error', (e)=> {
+          progress_end();
+          document.getElementsByClassName("error")[0].style.display = "block";
+        });
+      });
+      function generate()
+      {
+        document.getElementsByClassName("error")[0].style.display = "none";
+        progress_start();
+        var makeitaquote_url = "https://informalmakeitaquote.glitch.me/";
+        var icon = encodeURIComponent(document.querySelector(".icon_url").value);
+        var content = encodeURIComponent(document.querySelector(".content").value);
+        var name = encodeURIComponent(document.querySelector(".name").value);
+        var id = encodeURIComponent(document.querySelector(".id").value);
+        if(icon.length!=0)
+          makeitaquote_url += `?icon=${icon}`;
+        if(content.length!=0)
+          makeitaquote_url += `&text=${content}`;
+        else
+          makeitaquote_url += `&text=%20`;
+        if(name.length!=0)
+          makeitaquote_url += `&name=- ${name}`;
+        else
+          makeitaquote_url += `&name=%20`;
+        if(id.length!=0&&id.substring(0,3)!="%40")id="%40"+id;
+        if(id.length!=0)
+          makeitaquote_url += "&id="+id;
+        else
+          makeitaquote_url += `&id=%20`;
+        document.getElementsByClassName("generated_image")[0].setAttribute("src", makeitaquote_url);
+      }
+      function copy_url()
+      {
+        var area = document.createElement("textarea");
+        area.textContent = `${location.origin+location.pathname}?icon=${encodeURIComponent(document.querySelector(".icon_url").value)}&text=${encodeURIComponent(document.querySelector(".content").value)}&name=${encodeURIComponent(document.querySelector(".name").value)}&id=${encodeURIComponent(document.querySelector(".id").value)}`;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+        alert("コピーしました！");
+      }
+      function progress_end()
+      {
+        document.getElementsByClassName("img_load")[0].setAttribute("style","display:none");
+      }
+      function progress_start()
+      {
+        document.getElementsByClassName("img_load")[0].setAttribute("style","display:block");
+      }
+    </script>
+  </head>
+  <body class="defaultfont">
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:22.5px;margin-bottom:-0.75em">nikkorin Web版</div><br>偽物の MakeItAQuote（通称: nikkorin）の画像を生成します。<br>画像生成処理の作者: <a class="cp_link1" href="https://twitter.com/i/user/1126400061523447808" target="_blank" rel="noopener noreferrer">にっこりんゆき</a><br>サイトの作者: <a class="cp_link1" href="https://twitter.com/i/user/1786871842252435456" target="_blank" rel="noopener noreferrer">そゃーな</a><br>※横画面推奨。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">内容をここに入力します。</span></span>
+      <textarea class="content" placeholder=" " style="width:90vw"></textarea>
+      <span>内容</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">名前をここに入力します。</span></span>
+      <input class="name" placeholder=" " style="width:90vw"></input>
+      <span>名前</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">「@」から始まるユーザー名をここに入力します。</span></span>
+      <input class="id" placeholder=" " style="width:90vw"></input>
+      <span>ユーザー名</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">アイコンのURLをここに入力します。正方形のアイコンをお勧めします。Data URIは使用できません。</span></span>
+      <input class="icon_url" placeholder=" " style="width:90vw"></input>
+      <span>アイコンのURL</span>
+    </label>
+    <div><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="generate()">生成！</button>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <div class="img_load" style="display:none"><progress class="matter-progress-circular"></progress><span class="br"></span></div>
+    <img class="generated_image" load="progress_end()" style="max-width:100%;height:auto;border:hidden;">
+    <p class="error" style="word-break:keep-all;overflow-wrap:anywhere;color:#ee2323;display:none;">生成に失敗しました。アイコンのURLが存在するパスを指定しているか、ネットワークに接続されているかを確認してください。</p>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="copy_url()">このサイトのURLを現在の状態を維持したままコピー</button>
+  </body>
+</html>
