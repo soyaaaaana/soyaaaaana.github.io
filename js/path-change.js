@@ -10,7 +10,7 @@ if  (location.protocol!="file:")
     path = path.replace(regex, "");
     changed = true;
   }
-  if (path2[path2.length-1].match(regex2))
+  if (!location.hostname.match(/^(localhost|127.0.0.1|192.168.\d{1,3}.\d{1,3}|172.168.\d{1,3}.\d{1,3}|172.(1[6-9]|2[0-9]|3[0-1]).\d{1,3}.\d{1,3}|10.\d{1,3}.\d{1,3}.\d{1,3})$/)&&path2[path2.length-1].match(regex2))
   {
     path = path.replace(regex2, "");
     changed = true;
