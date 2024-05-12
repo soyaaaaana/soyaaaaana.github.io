@@ -20,8 +20,8 @@
       {
         progress_start();
         var makeitaquote_url = "/generate?tweet=";
-        makeitaquote_url += document.getElementsByClassName("tweet_url")[0].value;
-        makeitaquote_url += "&font=" + document.querySelectorAll("input[name=select-font]:checked")[0].parentNode.getAttribute("font-name");
+        makeitaquote_url += encodeURIComponent(document.getElementsByClassName("tweet_url")[0].value);
+        //makeitaquote_url += "&font=" + document.querySelectorAll("input[name=select-font]:checked")[0].parentNode.getAttribute("font-name");
         if (document.getElementsByClassName("flip")[0].checked)
           makeitaquote_url += "&flip";
         if (document.getElementsByClassName("light")[0].checked)
