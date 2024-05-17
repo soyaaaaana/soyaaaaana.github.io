@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>爆破ー！！！</title>
+    <meta content="ただただ爆発させるだけ" name="description">
+    <script src="../../js/path-change.js"></script>
+    <script type="text/javascript">
+      window.addEventListener('DOMContentLoaded', function(){
+        const touchsupport = "ontouchend" in document;
+        const event = touchsupport ? "touchstart" : "mousedown";
+        document.body.addEventListener('touchstart', function(e){
+          e.preventDefault();
+          explosion();
+        });
+        document.body.addEventListener('mousedown', function(e){
+          e.preventDefault();
+          explosion();
+        });
+        function explosion()
+        {
+          let e = document.querySelector("video");
+          e.volume = 0.05;
+          e.currentTime = 0;
+          e.play();
+        }
+      });
+    </script>
+  </head>
+  <body style="margin:0">
+    <div style="position:absolute;top:0;right:0;bottom:0;left:0;overflow:hidden;">
+      <video src="./Explosion.mp4" style="position:absolute;top:50%;left:50%;object-fit:cover;transform:translate(-50%,-50%);width:100%;height:100%;"></video>
+    </div>
+  </body>
+</html>
