@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ツイートコピーコード</title>
+    <meta content="ツイートをコピーするためのJavaScriptコードをコピーします。" name="description">
+    <script src="../../js/path-change.js"></script>
+    <script src="../../js/no-ie.js"></script>
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../../css/matter-darktheme.css">
+    <link rel="stylesheet" href="../../css/tools-basic.css">
+    <script>
+      function copy()
+      {
+        var area = document.createElement("textarea");
+        area.textContent = `javascript:{function getLastChild(e){return 0===e.children.length?e:getLastChild(e.lastElementChild)}let e=document.createElement("textarea");e.textContent=Array.from(getLastChild(document.querySelector('.css-175oi2r.r-1ila09b.r-qklmqi.r-1adg3ll.r-1ny4l3l [data-testid="tweetText"]')).parentElement.children).map(e=>"IMG"==e.tagName?e.alt:e.textContent).join(""),document.body.appendChild(e),e.select(),document.execCommand("copy"),document.body.removeChild(e),alert("コピーしました！")}`;
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand("copy");
+        document.body.removeChild(area);
+        alert("コピーしました！");
+      }
+    </script>
+  </head>
+  <body class="defaultfont">
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:22.5px;margin-bottom:-0.75em">ツイートコピーコード</div><br>ツイートをコピーするためのJavaScriptコードをコピーします。</p>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="copy()">コピー</button>
+  </body>
+</html>
