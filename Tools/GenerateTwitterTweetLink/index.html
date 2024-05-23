@@ -1,0 +1,91 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>ツイートリンク生成</title>
+    <meta content="ツイートするリンクを生成します。" name="description">
+    <script src="../../js/path-change.js"></script>
+    <script src="../../js/no-ie.js"></script>
+    <link rel="stylesheet" href="../../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../../css/matter-darktheme.css">
+    <link rel="stylesheet" href="../../css/tools-basic.css">
+    <script>
+window.addEventListener("DOMContentLoaded", () => {
+  const textareaEls = document.querySelectorAll("textarea");
+  textareaEls.forEach((textareaEl) => {
+    textareaEl.setAttribute("style", `height: ${textareaEl.scrollHeight+1}px;width:90vw`);
+    textareaEl.style.resize = "none";
+    textareaEl.addEventListener("input", setTextareaHeight);
+    function setTextareaHeight() {
+      this.setAttribute("style", `height: ${textareaEl.scrollHeight+1}px;width:90vw`);
+      this.style.height = "auto";
+      this.style.height = `${this.scrollHeight+1}px`;
+      textareaEl.style.resize = "none";
+    }
+  });
+});
+      function generate_query()
+      {
+        let url = "?";
+        let text = encodeURIComponent(document.querySelector(".text").value);
+        if (text)
+          url += "text=" + text + "&";
+        let in_reply_to = document.querySelector(".in_reply_to").value;
+        if (in_reply_to)
+        {
+          let reply_url = in_reply_to;
+          if (reply_url.includes("?"))
+            reply_url = reply_url.split("?")[0];
+          if (/https?:\/\/(twitter|x).com\/.*\/status\/\d*/.test(reply_url))
+            in_reply_to = reply_url.replace(/https?:\/\/(twitter|x).com\/.*\/status\//,"");
+          else
+            in_reply_to = "";
+          if (in_reply_to)
+            if(!/\d/.test(in_reply_to))
+              in_reply_to = "";
+        }
+        if (in_reply_to)
+          url += "in_reply_to=" + in_reply_to + "&";
+        url += "mx=1";
+        return url;
+      }
+      function generate_twitter()
+      {
+        let url = "https://twitter.com/intent/tweet" + generate_query();
+        document.querySelector(".result").href = url;
+        document.querySelector(".result").textContent = url;
+      }
+      function generate_x()
+      {
+        let url = "https://x.com/intent/post" + generate_query().replace(/&mx=1|\?mx=1/, "");
+        document.querySelector(".result").href = url;
+        document.querySelector(".result").textContent = url;
+      }
+    </script>
+  </head>
+  <body class="defaultfont">
+    <!--
+    <div class="progresses" style="text-align:center;margin:-8px;">
+      <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
+    </div>
+    -->
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:22.5px;margin-bottom:-0.75em">ツイートリンク生成</div><br>ツイートするリンクを生成します。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4">ツイートの本文をここに入力します。</span></span>
+      <textarea class="text" placeholder=" " style="width:90vw"></textarea>
+      <span>ツイートの本文</span>
+    </label>
+    <div style="margin-bottom: -1.5em;"><span class="br"></span></div>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4">返信先となるツイートのURLをここに入力します。</span></span>
+      <input class="in_reply_to" placeholder=" " style="width:90vw"></input>
+      <span>ツイートのURL</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="generate_twitter()">リンク生成（twitter.com）</button>
+    <div style="margin-bottom: -0.5em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="generate_x()">リンク生成（x.com）</button>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
+    <a class="cp_link1 result" style="word-break:keep-all;overflow-wrap:anywhere"></p>
+  </body>
+</html>
