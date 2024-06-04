@@ -1,0 +1,31 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>長文ツイート</title>
+    <meta content="長文ツイートをURLを使用して疑似的に実装します。" name="description">
+    <script src="../js/path-change.js"></script>
+    <script src="../js/no-ie.js"></script>
+    <link rel="stylesheet" href="../css/matter-0.2.2.min.css">
+    <link rel="stylesheet" href="../css/matter-darktheme.css">
+    <link rel="stylesheet" href="../css/tools-basic.css">
+    <script>
+      function generate()
+      {
+        let link = `${location.origin}/Tools/output?text=${encodeURIComponent(document.querySelector(".content").value)}`;
+        document.querySelector(".link").innerHTML = `<a class="cp_link1" style="word-break:keep-all;overflow-wrap:anywhere;" href="${link}">${link}</a>`;
+      }
+    </script>
+  </head>
+  <body class="defaultfont">
+    <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:22.5px;margin-bottom:-0.75em">長文ツイート</div><br>文字数制限以上の長文をツイートするためのツールです。<br>仕組みは、ツイートに張り付けるURL(URLはどんなに長くても短くても22文字分にカウントされます)を使用して、アクセスした際にクエリパラメータから文字を取得するというものです。</p>
+    <label class="matter-textfield-outlined darktheme">
+      <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">内容をここに入力します。</span></span>
+      <textarea class="content" placeholder=" " style="width:90vw;field-sizing:content;"></textarea>
+      <span>内容</span>
+    </label>
+    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <button class="matter-button-contained" onclick="generate()">生成！</button>
+    <div class="link"></div>
+  </body>
+</html>

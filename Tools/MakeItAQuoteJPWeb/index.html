@@ -33,7 +33,7 @@
         if (can_bold(document.querySelectorAll("input[name=select-font]:checked")[0]) && document.getElementsByClassName("bold")[0].checked)
           makeitaquote_url += "&bold";
         var API_URL = `https://d3l6lb1in7.execute-api.us-west-2.amazonaws.com/SocialTensor${makeitaquote_url}`
-        document.querySelector(".API_URL").innerHTML = `API URL: <a class="cp_link1" href="${API_URL}">${API_URL}</a>`
+        document.querySelector(".API_URL").innerHTML = `API URL: <a class="cp_link1" style="word-break:keep-all;overflow-wrap:anywhere;" href="${API_URL}">${API_URL}</a>`
         await fetch(API_URL).then(response=>{
           if (!response.ok) {
             throw new Error();

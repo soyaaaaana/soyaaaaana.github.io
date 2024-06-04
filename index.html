@@ -19,6 +19,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   function add(title,description,addedDate,blogNumber){add_customUrl(title,description,addedDate,"blog/"+blogNumber+"/")}
   function add_customUrl(title,description,addedDate,url){if(location.protocol=="file:")if(url.substring(url.length-1)=="/")url+="index.html";path_url=location.href.split(/#/)[0];path_url=path_url.substring(0,path_url.lastIndexOf("/"));appendChild(`<div style="max-width:50em;margin: 10 auto;"><div class="html_card"><p class="title"><a class="card_link" href="${path_url}/${url}">${title}</a></p>${description}(${addedDate})<p class="copy" style="margin-bottom: 1.5em;"><a class="card_link" href="${path_url}/${url}">${path_url}/${url}</a></p><p class="card_bt page"><a class="card_link" href="${path_url}/${url}">ホームページを見る</a></p></div></div>`, "div.main");}
+  add_customUrl("長文ツイート","URLの仕様を利用して長文ツイートを疑似的に可能にします。","2024/06/05","Tools/LongTweet")
   add_customUrl("ツイートリンク生成","ツイートするリンクを生成します。","2024/05/17","Tools/GenerateTwitterTweetLink/")
   add_customUrl("爆破ー！！！","ただただ爆発させるだけ","2024/05/17","Tools/Explosion/")
   add_customUrl("MAKE IT A QUOTE 日本語版","MAKE IT A QUOTE の非公式の日本語版です。UIは当サイトで使用しているのものです。","2024/05/13","Tools/MakeItAQuoteJPWeb/")
