@@ -12,7 +12,12 @@
     <script>
       function generate()
       {
-        let link = `${location.origin}/Tools/output?text=${encodeURIComponent(document.querySelector(".content").value)}`;
+        let link = `${location.origin}/Tools/output?`;
+        if (document.querySelector(".content").value)
+          link+=`text=${encodeURIComponent(document.querySelector(".content").value)}&`
+        if (document.querySelector(".html").checked)
+          link+="html&"
+        link=link.replace(/(\?|&)$/,"");
         document.querySelector(".link").innerHTML = `<a class="cp_link1" style="word-break:keep-all;overflow-wrap:anywhere;" href="${link}">${link}</a>`;
       }
     </script>
@@ -24,8 +29,14 @@
       <textarea class="content" placeholder=" " style="width:90vw;field-sizing:content;"></textarea>
       <span>内容</span>
     </label>
-    <div style="margin-bottom: -1em;"><span class="br"></span></div>
+    <div style="margin-bottom: -0.5em;"><span class="br"></span></div>
+    <label class="matter-checkbox darktheme" style="margin-left:0.5em">
+      <input class="html" type="checkbox">
+      <span>書体に関するHTMLタグの使用</span>
+    </label>
+    <div><span class="br"></span></div>
     <button class="matter-button-contained" onclick="generate()">生成！</button>
+    <div style="margin-bottom: -0.5em;"><span class="br"></span></div>
     <div class="link"></div>
   </body>
 </html>

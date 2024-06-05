@@ -8,10 +8,10 @@
     <script src="../js/no-ie.js"></script>
     <link rel="stylesheet" href="../css/matter-0.2.2.min.css">
     <link rel="stylesheet" href="../css/matter-darktheme.css">
-    <script>function encodeHTML(e){var n=document.createElement("div");n.appendChild(document.createTextNode(e));let t=n.innerHTML;return n.remove(),t}function decodeHTML(e){var n=document.createElement("div");n.innerHTML=e;let t=n.innerText;return n.remove(),t}window.addEventListener("DOMContentLoaded",function(){var e=new URL(location.href).searchParams;e.has("text")?decodeURIComponent(document.querySelector(".content").innerHTML=encodeHTML(e.get("text"))):location.replace("./LongTweet.html")})</script>
-    <style></style>
+    <script>function encodeHTML(e){let t=document.createElement("div");t.appendChild(document.createTextNode(e));let n=t.innerHTML;return t.remove(),n}function decodeHTML(e){let t=document.createElement("div");t.innerHTML=e;let n=t.innerText;return t.remove(),n}window.addEventListener("DOMContentLoaded",function(){var e=new URL(location.href).searchParams;e.has("text")?e.has("html")?decodeURIComponent(document.querySelector(".content").innerHTML=encodeHTML(e.get("text")).replace(/&lt;(b|i|s|u)&gt;/g,"<$1>").replace(/&lt;\/(b|i|s|u)&gt;/g,"</$1>")):decodeURIComponent(document.querySelector(".content").innerText=e.get("text")):location.replace("./LongTweet.html")})</script>
+    <style>@font-face{font-family:"Roboto";src:url("../webfonts/Roboto-Medium.ttf")}@font-face{font-family:"twitter";src:url("../webfonts/chirp_regular_400.otf")}@font-face{font-family:"number";src:url("../webfonts/roboto_medium_numbers.ttf")}*{font-family:"Roboto","twitter"}@font-face{font-family:"twitter_bold";src:url("../webfonts/chirp_bold_700.otf")}b{font-family:"twitter_bold"}</style>
   </head>
-  <body class="defaultfont">
+  <body>
     <div class="content" style="white-space:pre-wrap;word-break:keep-all;overflow-wrap:anywhere;font-size:1.25em;"></div>
   </body>
 </html>
