@@ -18,7 +18,7 @@ async function show()
   /** @type {number} */
   let retweet_count = 0;
   
-  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"cors"}).then(async response=> {
+  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(async response=> {
     /*if (!response.ok) {
       progress_end();
       throw new Error();
