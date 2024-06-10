@@ -18,11 +18,11 @@ async function show()
   /** @type {number} */
   let retweet_count = 0;
   
-  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(response=> {
-    if (!response.ok) {
+  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"cors"}).then(response=> {
+    /*if (!response.ok) {
       progress_end();
       throw new Error();
-    }
+    }*/
     return response.json();
   }).then(data=>{
     retweet_count = data.retweet_count;
@@ -31,7 +31,7 @@ async function show()
     console.error('There was a problem with the fetch operation: ', error);
   });
   document.querySelector(".tweet_detail").textContent = `RT数: ${retweet_count}`;
-  await fetch(`https://api.twitterpicker.com/tweet/retweets?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(response=>{
+  await fetch(`https://api.twitterpicker.com/tweet/retweets?id=${document.querySelector(".tweet_id").value}`,{mode:"cors"}).then(response=>{
     if (!response.ok) {
       progress_end();
       throw new Error();
