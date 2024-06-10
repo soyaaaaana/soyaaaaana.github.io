@@ -18,18 +18,26 @@ async function show()
   /** @type {number} */
   let retweet_count = 0;
   
-  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(response=> {
+  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"cors"}).then(async response=> {
     /*if (!response.ok) {
       progress_end();
       throw new Error();
     }*/
-    return response.json();
-  }).then(data=>{
-    retweet_count = data.retweet_count;
+    //console.log(response.text())
+    await response.text().then(data_=>{
+      /*resolve(data_ ? JSON.parse(data_) : {}).then(data=>{
+        retweet_count = data.retweet_count;
+      })*/
+      let data = data_ ? JSON.parse(data_) : {}
+      retweet_count = data.retweet_count;
+      console.log(data)
+      console.log(retweet_count)
+    });
   }).catch(error=>{
     progress_end();
     console.error('There was a problem with the fetch operation: ', error);
   });
+  console.log(retweet_count);
   document.querySelector(".tweet_detail").textContent = `RT数: ${retweet_count}`;
   await fetch(`https://api.twitterpicker.com/tweet/retweets?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(response=>{
     /*if (!response.ok) {
@@ -38,6 +46,7 @@ async function show()
     }*/
     return response.json();
   }).then(data=>{
+    resolve(data ? JSON.parse(data) : {})
     for(let i = 0;i<data.length;i++)
     {
       user_id.push(data[i]["user_id"])
