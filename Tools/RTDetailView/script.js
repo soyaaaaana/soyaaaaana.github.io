@@ -3,6 +3,7 @@ function decodeHTML(e){let t=document.createElement("div");t.innerHTML=e;let n=t
 async function show()
 {
   progress_start();
+  let tweet_id_input = document.querySelector(".tweet_id").value;
   /** @type {string[]} */
   let user_id = [];
   /** @type {string[]} */
@@ -18,44 +19,39 @@ async function show()
   /** @type {number} */
   let retweet_count = 0;
   
-  await fetch(`https://api.twitterpicker.com/tweet/datav3?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(async response=> {
-    /*if (!response.ok) {
+  await fetch(`https://script.google.com/macros/s/AKfycbzMLZbOYraHk7lxFEocJlIUSO-lxOPoj5zLbC1ETCGMWYVw4G14CxJDF4Yhu4SNnGhqZQ/exec?type=tweet&id=${tweet_id_input}`).then(response=> {
+    if (!response.ok) {
       progress_end();
       throw new Error();
-    }*/
-    //console.log(response.text())
-    await response.text().then(data_=>{
-      /*resolve(data_ ? JSON.parse(data_) : {}).then(data=>{
-        retweet_count = data.retweet_count;
-      })*/
-      let data = data_ ? JSON.parse(data_) : {}
-      retweet_count = data.retweet_count;
-      console.log(data)
-      console.log(retweet_count)
-    });
+    }
+    return response.text();
+  }).then(data=>{
+    data = data ? JSON.parse(data) : {};
+    retweet_count = data.retweet_count;
+    console.log(data);
   }).catch(error=>{
     progress_end();
     console.error('There was a problem with the fetch operation: ', error);
   });
-  console.log(retweet_count);
   document.querySelector(".tweet_detail").textContent = `RT数: ${retweet_count}`;
-  await fetch(`https://api.twitterpicker.com/tweet/retweets?id=${document.querySelector(".tweet_id").value}`,{mode:"no-cors"}).then(response=>{
-    /*if (!response.ok) {
+  await fetch(`https://script.google.com/macros/s/AKfycbzMLZbOYraHk7lxFEocJlIUSO-lxOPoj5zLbC1ETCGMWYVw4G14CxJDF4Yhu4SNnGhqZQ/exec?id=${tweet_id_input}`).then(response=>{
+    if (!response.ok) {
       progress_end();
       throw new Error();
-    }*/
-    return response.json();
+    }
+    return response.text();
   }).then(data=>{
-    resolve(data ? JSON.parse(data) : {})
+    data = data ? JSON.parse(data) : {};
     for(let i = 0;i<data.length;i++)
     {
-      user_id.push(data[i]["user_id"])
-      tweet_id.push(data[i]["tweet_id"])
-      handle.push(data[i]["handle"])
-      name.push(data[i]["name"])
-      timestamp.push(data[i]["timestamp"])
-      image.push(data[i]["image"])
+      user_id.push(data[i]["user_id"]);
+      tweet_id.push(data[i]["tweet_id"]);
+      handle.push(data[i]["handle"]);
+      name.push(data[i]["name"]);
+      timestamp.push(data[i]["timestamp"]);
+      image.push(data[i]["image"]);
     }
+    console.log(data);
   }).catch(error=>{
     console.error('There was a problem with the fetch operation: ', error);
     progress_end();
@@ -75,4 +71,8 @@ function progress_end()
 function progress_start()
 {
   document.querySelector(".progress").setAttribute("style","display:block");
+}
+async function read(url)
+{
+  return await fetch(url, {mode:"cors"}) .then(response => { return response.text() })
 }
