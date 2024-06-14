@@ -30,6 +30,11 @@
           progress_end();
           document.getElementsByClassName("error")[0].style.display = "block";
         });
+        document.querySelectorAll(".icon_url,.content,.name,.id,.debug").forEach(e=>{
+          e.addEventListener("change", (v) => {
+            history.replaceState({},null,`${location.origin}${location.pathname}${url_params().search}`);
+          });
+        })
       });
       function generate()
       {
@@ -61,29 +66,31 @@
       }
       function copy_url()
       {
-        let url = `${location.origin+location.pathname}?`;
-        let icon = encodeURIComponent(document.querySelector(".icon_url").value);
-        let text = encodeURIComponent(document.querySelector(".content").value);
-        let name = encodeURIComponent(document.querySelector(".name").value);
-        let id = encodeURIComponent(document.querySelector(".id").value);
-        let debug = document.querySelector(".debug").checked==true&&"debug=true&"||"";
-        if(icon.length!=0)
-          url+=`icon=${icon}&`;
-        if(text.length!=0)
-          url+=`text=${text}&`;
-        if(name.length!=0)
-          url+=`name=${name}&`;
-        if(id.length!=0)
-          url+=`id=${id}&`;
-        url+=debug;
-        if(url.substring(url.length-1)=="&"||url.substring(url.length-1)=="?")url=url.substring(0,url.length-1)
         var area = document.createElement("textarea");
-        area.textContent = url;
+        area.textContent = url_params().href;
         document.body.appendChild(area);
         area.select();
         document.execCommand("copy");
         document.body.removeChild(area);
         alert("コピーしました！");
+      }
+      function url_params()
+      {
+        let url = new URL(`${location.origin+location.pathname}`);
+        let icon = document.querySelector(".icon_url").value;
+        let text = document.querySelector(".content").value;
+        let name = document.querySelector(".name").value;
+        let id = document.querySelector(".id").value;
+        if(icon.length!=0)
+          url.searchParams.set("icon",icon);
+        if(text.length!=0)
+          url.searchParams.set("text",text);
+        if(name.length!=0)
+          url.searchParams.set("name",name);
+        if(id.length!=0)
+          url.searchParams.set("id",id);
+        if(document.querySelector(".debug").checked==true)url.searchParams.set("debug","true");
+        return url;
       }
       function progress_end()
       {
