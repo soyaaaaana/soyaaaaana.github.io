@@ -30,9 +30,10 @@
           progress_end();
           document.getElementsByClassName("error")[0].style.display = "block";
         });
+        function update(){history.replaceState({},null,`${location.origin}${location.pathname}${url_params().search}`);}
         document.querySelectorAll(".icon_url,.content,.name,.id,.debug").forEach(e=>{
-          e.addEventListener("change", (v) => {
-            history.replaceState({},null,`${location.origin}${location.pathname}${url_params().search}`);
+          e.addEventListener("input", (v) => {
+            update();
           });
         })
       });
