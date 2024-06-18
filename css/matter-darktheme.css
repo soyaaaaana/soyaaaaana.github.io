@@ -1,19 +1,32 @@
 @media(prefers-color-scheme:dark){
-  body{background:#323232;color:#fff;}
+  body{background:#323232;color:#fff}
   label[class^="matter-textfield-"].darktheme>textarea,label[class^="matter-textfield-"].darktheme>input{color:#fff}
   label[class^="matter-textfield-"].darktheme>textarea:not(:focus):placeholder-shown+span,label[class^="matter-textfield-"].darktheme>input:not(:focus):placeholder-shown+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
   label[class^="matter-textfield-"].darktheme>textarea:not(:focus)+span,label[class^="matter-textfield-"].darktheme>input:not(:focus)+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
   label[class^="matter-textfield-"].darktheme{--matter-helper-safari1:rgba(var(--matter-onsurface-rgb,255,255,255),0.38);--matter-helper-safari2:rgba(var(--matter-onsurface-rgb,255,255,255),0.6);--matter-helper-safari3:rgba(var(--matter-onsurface-rgb,255,255,255),0.87)}
-  label.matter-radio.darktheme{color:#fff;}
+  label.matter-radio.darktheme{color:#fff}
   label.matter-radio.darktheme>input:not(:checked){border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
   label.matter-checkbox.darktheme>input:not(:checked){border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.6)}
   label.matter-checkbox.darktheme>span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.87)}
   label.matter-checkbox.darktheme>input+span:before{background-color:rgb(var(--matter-onsurface-rgb,255,255,255))}
   label.matter-checkbox.darktheme>input:disabled{border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.38)}
   label.matter-checkbox.darktheme>input:disabled+span{color:rgba(var(--matter-onsurface-rgb,255,255,255),.38)}
+  button.matter-button-outlined{border-color:rgba(var(--matter-onsurface-rgb,255,255,255),.24)}
+  dialog{background:#323232;color:#fff}
+  dialog::backdrop{background:rgba(255,255,255,.2)}
 }
-@media(prefers-color-scheme:light){label[class^="matter-textfield"]{--matter-helper-theme:#1a73e8}label[class^="matter-"]>input:not(.matter-textfield){--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}label.matter-radio{--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}}
-label[class^="matter-textfield-"]{margin-bottom: 0.45em}
+@media(prefers-color-scheme:light){
+  label[class^="matter-textfield"]{--matter-helper-theme:#1a73e8}
+  label[class^="matter-"]>input:not(.matter-textfield){--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}
+  label.matter-radio{--matter-helper-theme:var(--matter-theme-rgb,var(--matter-primary-rgb,26,115,232))}
+  dialog::backdrop{background:rgba(0,0,0,.2)}
+}
+label[class^="matter-textfield-"]{margin-bottom: .45em}
 label[class^="matter-textfield-"]>span:not(.matter-tooltip){user-select:none;cursor:text;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 label[class^="matter-textfield-"]>span.matter-tooltip{user-select:none;cursor:default}
 label.matter-checkbox>input:disabled+span{text-decoration:line-through}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+dialog[open],dialog[open]::backdrop{display:block;animation-name:fadeIn;animation-fill-mode:forwards;animation-duration:200ms;animation-timing-function:ease-out}
+@keyframes fadeOut{from{opacity:1}to{opacity:0}}
+dialog{border:none;border-radius:.5rem;box-shadow: 0 4px 16px rgba(0 0 0/16%);display:block;position:fixed;inset-inline:0;inset-block:0;animation-name:fadeOut;animation-fill-mode:forwards;animation-duration:200ms;animation-timing-function:ease-out}
+dialog::backdrop{backdrop-filter:blur(4px)}
