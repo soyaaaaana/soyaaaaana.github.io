@@ -153,7 +153,7 @@ async function get_tweet()
   });
   document.querySelector(".progress").style.display = "none";
   //document.querySelector(".content").value = text.replace(/https?:\/\/t.co\/[a-z0-9]*/gi,async function(s){await get_t_co_url(s)});
-  text = await replaceAsync(text,/https?:\/\/t.co\/[a-z0-9]*/gi,async(match,name)=>{return await get_t_co_url(match)})
+  text = decodeHTML(await replaceAsync(text,/https?:\/\/t.co\/[a-z0-9]*/gi,async(match,name)=>{return await get_t_co_url(match)}))
   document.querySelector(".content").value = text;
   document.querySelector(".name").value = name;
   document.querySelector(".id").value = id;
@@ -214,3 +214,4 @@ function reset()
   document.querySelector(".id").value = "";
   document.querySelector(".icon_url").value = "";
 }
+function encodeHTML(e){let t=document.createElement("div");t.appendChild(document.createTextNode(e));let n=t.innerHTML;return t.remove(),n}function decodeHTML(e){let t=document.createElement("div");t.innerHTML=e;let n=t.innerText;return t.remove(),n}
