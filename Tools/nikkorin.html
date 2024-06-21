@@ -10,172 +10,16 @@
     <link rel="stylesheet" href="../css/matter-darktheme.css">
     <link rel="stylesheet" href="../css/tools-basic.css">
     <!--<script type="module">import{parseFont}from'./canvas.js';window.parseFont=parseFont;</script>-->
-    <script>
-      window.addEventListener('DOMContentLoaded', function(){
-        var params = new URL(location.href).searchParams;
-        if (params.has("icon"))
-          decodeURIComponent(document.querySelector(".icon_url").value=params.get("icon"));
-        if (params.has("text"))
-          decodeURIComponent(document.querySelector(".content").value=params.get("text"));
-        if (params.has("name"))
-          decodeURIComponent(document.querySelector(".name").value=params.get("name"));
-        if (params.has("id"))
-          decodeURIComponent(document.querySelector(".id").value=params.get("id"));
-        if (params.has("debug")&&params.get("debug")=="true")
-          document.querySelector(".debug").checked=true;
-        document.getElementsByClassName("generated_image")[0].addEventListener('load', (e)=> {
-          progress_end();
-        });
-        document.getElementsByClassName("generated_image")[0].addEventListener('error', (e)=> {
-          progress_end();
-          document.getElementsByClassName("error")[0].style.display = "block";
-        });
-        document.querySelectorAll(".icon_url,.content,.name,.id,.debug").forEach(e=>{
-          e.addEventListener("input", (v) => {
-            update();
-          });
-        })
-        let dialog = document.querySelector(".tweetid_input_dialog");
-        dialog.addEventListener('click', function (event) {
-          if (!event.target.closest('.tweetid_input_dialog .inner')) {
-            dialog.close();
-          }
-          else if (event.target == dialog.querySelector(".cancel")) dialog.close("cancel")
-          else if (event.target == dialog.querySelector(".ok")) dialog.close("ok")
-        });
-        dialog.addEventListener("close",async(e) => {
-          if (dialog.returnValue == "ok")
-            get_tweet();
-          document.documentElement.style.overflow = "initial";
-          dialog.style.pointerEvents = "none";
-          const waitDialogAnimation = (dialog) => Promise.allSettled(
-            Array.from(dialog.getAnimations()).map(animation => animation.finished)
-          );
-          await waitDialogAnimation(e.target)
-        });
-      });
-      function generate()
-      {
-        document.getElementsByClassName("error")[0].style.display = "none";
-        progress_start();
-        var makeitaquote_url = "https://informalmakeitaquote.glitch.me/?";
-        var icon = encodeURIComponent(document.querySelector(".icon_url").value);
-        var content = encodeURIComponent(document.querySelector(".content").value);
-        var name = encodeURIComponent(document.querySelector(".name").value);
-        var id = encodeURIComponent(document.querySelector(".id").value);
-        if(icon.length!=0)
-          makeitaquote_url += `icon=${icon}&`;
-        if(content.length!=0)
-          makeitaquote_url += `text=${content}&`;
-        else
-          makeitaquote_url += `text=%20&`;
-        if(name.length!=0)
-          makeitaquote_url += `name=- ${name}&`;
-        else
-          makeitaquote_url += `name=%20&`;
-        if(id.length!=0&&id.substring(0,3)!="%40")id="%40"+id;
-        if(id.length!=0)
-          makeitaquote_url += `id=${id}&`;
-        else
-          makeitaquote_url += `id=%20&`;
-        if(document.querySelector(".debug").checked)makeitaquote_url+="debug=2&"
-        if(makeitaquote_url.substring(makeitaquote_url.length-1)=="&"||makeitaquote_url.substring(makeitaquote_url.length-1)=="?")makeitaquote_url=makeitaquote_url.substring(0,makeitaquote_url.length-1)
-        document.querySelector(".generated_image").setAttribute("src", makeitaquote_url);
-      }
-      function copy_url()
-      {
-        var area = document.createElement("textarea");
-        area.textContent = url_params().href;
-        document.body.appendChild(area);
-        area.select();
-        document.execCommand("copy");
-        document.body.removeChild(area);
-        alert("コピーしました！");
-      }
-      function url_params()
-      {
-        let url = new URL(`${location.origin+location.pathname}`);
-        let icon = document.querySelector(".icon_url").value;
-        let text = document.querySelector(".content").value;
-        let name = document.querySelector(".name").value;
-        let id = document.querySelector(".id").value;
-        if(icon.length!=0)
-          url.searchParams.set("icon",icon);
-        if(text.length!=0)
-          url.searchParams.set("text",text);
-        if(name.length!=0)
-          url.searchParams.set("name",name);
-        if(id.length!=0)
-          url.searchParams.set("id",id);
-        if(document.querySelector(".debug").checked==true)url.searchParams.set("debug","true");
-        return url;
-      }
-      function progress_end()
-      {
-        document.getElementsByClassName("img_load")[0].setAttribute("style","display:none");
-      }
-      function progress_start()
-      {
-        document.getElementsByClassName("img_load")[0].setAttribute("style","display:block");
-      }
-      function image_reload()
-      {
-        progress_start()
-        let e=document.querySelector(".generated_image")
-        let s=e.src
-        if(s){e.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVQI12NgYAAAAAMAASDVlMcAAAAASUVORK5CYII=";e.src=s}else{e.removeAttribute("src");progress_end()}
-      }
-      function dialog_open()
-      {
-        document.documentElement.style.overflow = "hidden";
-        let dialog = document.querySelector(".tweetid_input_dialog");
-        dialog.style.pointerEvents = "auto";
-        dialog.style.display = "block";
-        dialog.showModal();
-      }
-      async function get_tweet()
-      {
-        document.querySelector(".progress").style.display = "block";
-        let text = "";
-        let name = "";
-        let id = "";
-        let profile_image = "";
-        await fetch(`https://script.google.com/macros/s/AKfycbw6N5z0mR6gqmPgLXUE1sxaWJYP9NaWEq2fB1i3MqRUO9JD3KLVA5FgTV1lvN_x69QU/exec?url=${encodeURIComponent("https://cdn.syndication.twimg.com/tweet-result?token=0&lang=ja&id=")}${document.querySelector(".tweet_id_input").value}`).then(response=> {
-          if (!response.ok) {
-            progress_end();
-            throw new Error();
-          }
-          return response.text();
-        }).then(data=>{
-          data=data?JSON.parse(data):{};
-          data = JSON.parse(data["response"]);
-          text = data["text"];
-          name = data["user"]["name"];
-          id = data["user"]["screen_name"];
-          profile_image = data["user"]["profile_image_url_https"].replace(/_(normal|bigger)\.(jpg|png)/,".$2");
-          console.log(data);
-        }).catch(error=>{
-          progress_end();
-          console.error('There was a problem with the fetch operation: ', error);
-        });
-        document.querySelector(".progress").style.display = "none";
-        document.querySelector(".content").value = text;
-        document.querySelector(".name").value = name;
-        document.querySelector(".id").value = id;
-        document.querySelector(".icon_url").value = profile_image;
-        update();
-      }
-      function update(){history.replaceState({},"",`${location.origin}${location.pathname}${url_params().search}`)}
-    </script>
+    <script src="./nikkorin_file/index.min.js"></script>
   </head>
   <body class="defaultfont">
-    <div class="progress" style="text-align:center;margin:-8px -8px -12px -8px;display:none">
+    <div class="progress" style="position:fixed;right:0;left:0;text-align:center;margin:-8px -8px -12px -8px;display:none">
       <progress class="matter-progress-linear" style="width:100%;max-width:750px;"></progress>
     </div>
     <p class="site-message" style="word-break:keep-all;overflow-wrap:anywhere"><div style="font-size:22.5px;margin-bottom:-0.75em">nikkorin Web版</div><br>偽物の MakeItAQuote（通称: nikkorin）の画像を生成します。<br>画像生成処理の作者: <a class="cp_link1" href="https://twitter.com/i/user/1126400061523447808" target="_blank" rel="noopener noreferrer"><s>にっこりんゆき (@nikkorin_yuki)</s></a>、<a class="cp_link1" href="https://twitter.com/i/user/1788148397842821121" target="_blank" rel="noopener noreferrer"><s>寝たっこりんゆき (@netakkorinyuki)</s></a>、<a class="cp_link1" href="https://twitter.com/i/user/1793281601776107520" target="_blank" rel="noopener noreferrer"><s>更生したにっこりん (@nikkorinyuki)</s></a>、<a class="cp_link1" href="https://twitter.com/i/user/1770814397985787904" target="_blank" rel="noopener noreferrer">にっこりんの表 (@backnikkorin)</a><br>サイトの作者: <a class="cp_link1" href="https://twitter.com/soyyyaaaaana" target="_blank" rel="noopener noreferrer"><s>そゃーな (@soyyyaaaaana)</s></a>、<a class="cp_link1" href="https://twitter.com/i/user/1786871842252435456" target="_blank" rel="noopener noreferrer"><s>そゃーなのさぶさぶ (@soyyaaanasubsub)</s></a>、<a class="cp_link1" href="https://twitter.com/i/user/1749382068050796544" target="_blank" rel="noopener noreferrer">なにかの紙 (@nanikanokami)</a>、<a class="cp_link1" href="https://twitter.com/i/user/1784494271078531072" target="_blank" rel="noopener noreferrer">そゃーなのサブ (@soyyyaaaaanasub)</a><br>※横画面推奨。</p>
     <label class="matter-textfield-outlined darktheme">
       <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">内容をここに入力します。</span></span>
-      <textarea class="content" placeholder=" " style="width:90vw"></textarea>
+      <textarea class="content" placeholder=" " style="width:90vw;field-sizing:content;resize:none"></textarea>
       <span>内容</span>
     </label>
     <div style="margin-bottom: -1em;"><span class="br"></span></div>
@@ -204,7 +48,7 @@
     <div><span class="br"></span></div>
     <dialog class="tweetid_input_dialog" style="padding:0;display:none">
       <div class="inner" style="padding:1em">
-        <p style="word-break:keep-all;overflow-wrap:anywhere">ツイートのURLまたはIDを入力してください。（6/19時点では、IDの入力での取得のみサポートしています。）</p>
+        <p style="word-break:keep-all;overflow-wrap:anywhere">ツイートのURLまたはIDを入力してください。</p>
         <label class="matter-textfield-outlined darktheme">
           <span class="matter-tooltip"><span id="tooltip" aria-hidden="true" style="font-size:12.5px;line-height:20px;margin-bottom:-4;">ツイートのURLまたはIDをここに入力します。</span></span>
           <input class="tweet_id_input" placeholder=" " style="width:80vw"></input>
@@ -215,6 +59,8 @@
         <button class="matter-button-contained ok">OK</button>
       </div>
     </dialog>
+    <button class="matter-button-outlined" onclick='reset()'>入力内容をリセット</button>
+    <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
     <button class="matter-button-outlined" onclick='dialog_open()'>ツイートを指定</button>
     <div><span class="br"></span></div>
     <button class="matter-button-contained" onclick="generate()">生成！</button>
@@ -225,6 +71,6 @@
     <!--<div style="margin-bottom: -0.75em;"><span class="br"></span></div>
     <button class="matter-button-text" onclick="image_reload()">画像を再読み込み</button>-->
     <div style="margin-bottom: -0.75em;"><span class="br"></span></div>
-    <button class="matter-button-contained" onclick="copy_url()">このサイトのURLを現在の状態を維持したままコピー</button>
+    <button class="matter-button-contained" onclick="copy_url()">状態を維持したままのURLをコピー</button>
   </body>
 </html>
