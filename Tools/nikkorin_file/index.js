@@ -214,5 +214,6 @@ function reset()
   document.querySelector(".name").value = "";
   document.querySelector(".id").value = "";
   document.querySelector(".icon_url").value = "";
+  update();
 }
 function encodeHTML(e){let t=document.createElement("div");t.appendChild(document.createTextNode(e));let n=t.innerHTML;return t.remove(),n}function decodeHTML(e){let t=document.createElement("div");t.innerHTML=e;let n=t.innerText;return t.remove(),n}
