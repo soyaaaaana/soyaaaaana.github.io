@@ -128,9 +128,10 @@ async function get_tweet()
   let id = "";
   let profile_image = "";
   let tweet_id = document.querySelector(".tweet_id_input").value;
-  if (!/^((https?:\/\/)?(mobile.)?(twitter|x).com\/[a-z0-9_]+\/status\/(\d+))|^\d+$/i.test(tweet_id))
+  let tweet_url_regexp = /^((https?:\/\/)?(mobile.)?(twitter|x).com\/[a-z0-9_]+\/status\/(\d+))|^\d+$/i;
+  if (!tweet_url_regexp.test(tweet_id))
     return error();
-  tweet_id = tweet_id.replace(/^(https?:\/\/)?(mobile.)?(twitter|x).com\/[a-z0-9_]+\/status\//,"")
+  tweet_id = tweet_id.match(tweet_url_regexp)[0].replace(/^(https?:\/\/)?(mobile.)?(twitter|x).com\/[a-z0-9_]+\/status\//i,"");
   if (!/\d/.test(tweet_id))
     return error();
   await fetch(`https://script.google.com/macros/s/AKfycbw6N5z0mR6gqmPgLXUE1sxaWJYP9NaWEq2fB1i3MqRUO9JD3KLVA5FgTV1lvN_x69QU/exec?url=${encodeURIComponent("https://cdn.syndication.twimg.com/tweet-result?token=0&lang=ja&id=")}${tweet_id}`).then(response=> {
