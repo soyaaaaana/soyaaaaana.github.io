@@ -25,7 +25,7 @@ window.addEventListener('DOMContentLoaded', function(){
   let dialog = document.querySelector(".tweetid_input_dialog");
   dialog.addEventListener('click', function (event) {
     if (!event.target.closest('.tweetid_input_dialog .inner')) {
-      dialog.close();
+      dialog.close("cancel");
     }
     else if (event.target == dialog.querySelector(".cancel")) dialog.close("cancel")
     else if (event.target == dialog.querySelector(".ok")) dialog.close("ok")
