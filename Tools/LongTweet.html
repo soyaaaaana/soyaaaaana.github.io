@@ -12,14 +12,24 @@
     <script>
       function generate()
       {
-        let link = `${location.origin}/Tools/output?`;
+        let link = new URL(`${location.origin}${location.pathname.replace(/[^\/]*$/,"")}output`);
         if (document.querySelector(".content").value)
-          link+=`text=${encodeURIComponent(document.querySelector(".content").value)}&`
+        {
+          let value = document.querySelector(".content").value;
+          if (document.querySelector(".hex"))
+          {
+            link.searchParams.set("hex","");
+            value = stringToHex(value);
+          }
+          else value=encodeURIComponent(value);
+          link.searchParams.set("text",value);
+        }
         if (document.querySelector(".html").checked)
-          link+="html&"
-        link=link.replace(/(\?|&)$/,"");
-        document.querySelector(".link").innerHTML = `<a class="cp_link1" style="word-break:keep-all;overflow-wrap:anywhere;" href="${link}">${link}</a>`;
+          link.searchParams.set("html","");
+        let url = link.href.replace(/=&/g,"&");
+        document.querySelector(".link").innerHTML = `<a class="cp_link1" style="word-break:keep-all;overflow-wrap:anywhere;" href="${url}">${url}</a>`;
       }
+      function stringToHex(r){return Array.from((new TextEncoder).encode(r)).map(r=>r.toString(16).padStart(2,"0")).join("")}function hexToString(r){return(new TextDecoder).decode(Uint8Array.from(r.match(/[0-9a-f]{2}/g),r=>parseInt(r,16)))}
     </script>
   </head>
   <body class="defaultfont">
@@ -33,6 +43,11 @@
     <label class="matter-checkbox darktheme" style="margin-left:0.5em">
       <input class="html" type="checkbox">
       <span>書体に関するHTMLタグの使用</span>
+    </label>
+    <div style="margin-bottom: -0.5em;"><span class="br"></span></div>
+    <label class="matter-checkbox darktheme" style="margin-left:0.5em">
+      <input class="hex" type="checkbox">
+      <span>URLに埋め込む値を16進数にする（内容がほとんど日本語の場合は推奨、ほとんど英語の場合は非推奨）</span>
     </label>
     <div><span class="br"></span></div>
     <button class="matter-button-contained" onclick="generate()">生成！</button>
