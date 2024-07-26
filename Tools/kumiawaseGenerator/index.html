@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja" data-bs-theme="dark">
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>ボタンメーカー データ取得</title>
+    <link rel='stylesheet' type='text/css' media='screen' href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
+    <style>body{margin:16px}</style>
+    <script>
+let lane_count = 0;
+/**
+ * 要素にHTML文字列を子要素として追加
+ * @param {string} htmlStr 追加する子要素の文字列
+ * @param {Element|Node} parentSelector 対象となる親要素
+ * @return {Element|Node} 追加した子要素
+ */
+var appendChild = function(htmlStr, parentSelector) {
+  var e;
+  if (typeof htmlStr !== "string" || typeof parentSelector !== "string" || document.querySelector(parentSelector).length === 0)
+    return;
+  e = document.createElement('div');
+  e.innerHTML = htmlStr;
+  return document.querySelector(parentSelector).appendChild(e.firstChild);
+};
+function encodeHTML(e){let t=document.createElement("div");t.appendChild(document.createTextNode(e));let n=t.innerHTML;return t.remove(),n}function decodeHTML(e){let t=document.createElement("div");t.innerHTML=e;let n=t.innerText;return t.remove(),n}
+window.addEventListener('DOMContentLoaded', function(){
+  document.querySelector(".add_lane").addEventListener("click", function(){
+    lane_count++;
+    appendChild(`<div class="mb-3" style="margin-top:.75em"><label for="lane${lane_count}" class="form-label">レーン${lane_count}</label><div class="input-group"><input type="text" class="form-control" id="lane${lane_count}"></div></div>`,".lane_edit")
+  });
+  document.querySelector(".generate").addEventListener("click", function(){
+    let str = [];
+    for (let i = 0; i < lane_count; i++)
+    {
+      str.push(document.querySelector(`#lane${i+1}`).value.split(/(?<!\\)(?!=),/g))
+    }
+    function generateCombinations(arrays) {
+      // 初期化: 結果を格納する配列
+      const result = [];
+
+      // 再帰関数で組み合わせを生成
+      function combine(current, index) {
+        // 最後の配列に達した場合、現在の組み合わせを結果に追加
+        if (index === arrays.length) {
+          result.push(current.join(''));
+          return;
+        }
+
+        // 現在の配列の要素を一つずつ取り出して、再帰的に組み合わせを生成
+        for (const element of arrays[index]) {
+          combine([...current, element], index + 1);
+        }
+      }
+
+      // 再帰関数を呼び出す
+      combine([], 0);
+
+      return result;
+    }
+    document.querySelector(".result").textContent = generateCombinations(str).join("\r\n")
+  });
+});
+    </script>
+  </head>
+  <body>
+    <p class="text-start">区切り文字は「,」です。「,」を使用したい場合は「\」を使用して「\,」のようにエスケープしてください。「\」を使用したい場合は「\\」のようにエスケープしてください。</p>
+    <div class="lane_edit"></div>
+    <button type="button" class="btn btn-primary add_lane" style="margin-top:.75em">レーンを追加</button>
+    <button type="button" class="btn btn-primary generate" style="margin-top:.75em">生成</button>
+    <br>
+    <br>
+    <span class="result" style="white-space:pre-wrap;word-break:keep-all;word-wrap:break-word;overflow-wrap:anywhere"></span>
+  </body>
+</html>
