@@ -143,7 +143,7 @@ async function get_tweet()
   }).then(data=>{
     data=data?JSON.parse(data):{};
     data = JSON.parse(data["response"]);
-    text = data["text"];
+    text = data["text"].substring(data.display_text_range[0],data.display_text_range[1]);
     name = data["user"]["name"];
     id = data["user"]["screen_name"];
     profile_image = data["user"]["profile_image_url_https"].replace(/_(normal|bigger|x96)\.(jpg|png)/,".$2");
