@@ -1,58 +1,34 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8"><!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KS5Q2D2P');</script><!-- End Google Tag Manager -->
-    <meta name="viewport" content="width=device-width">
-    <meta content="いろんなツールや備忘録的なものを書きます" name="description">
-    <meta name="google-site-verification" content="6n5kJR8uB0X8fs6OF6aHF0Wq1Cz3C8TTsM_GtZdsreM" />
-    <meta name="google-site-verification" content="EukidbC0FmNLKg5jePCRIUj46AkAG1s2EpQKb-s6bRI" />
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name="color-scheme" content="light dark">
+    <link rel='stylesheet' type='text/css' media='screen' href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/js/bootstrap.min.js"></script>
+    <link rel='stylesheet' type='text/css' media='screen' href="https://res.cloudinary.com/finnhvman/raw/upload/matter/matter-0.2.2.min.css">
     <title>そゃーなのブログ</title>
-    <script src="./js/path-change.js"></script>
-    <script src="./js/no-ie.js"></script>
-    <link rel="stylesheet" href="./css/blog-font.css" type="text/css">
-    <link rel="stylesheet" href="./css/blog-main.css" type="text/css">
-    <link rel="stylesheet" href="./css/FontAwesome/all.css" type="text/css">
-    <script src="./js/budoux-ja.min.js"></script>
-    <script src="./js/blog-main.js" defer></script>
-    <script src="./js/blog-font.js" defer></script>
-    <script src="./js/snow.js" defer></script>
-    <script defer>
-document.addEventListener('DOMContentLoaded', function() {
-  function add(title,description,addedDate,blogNumber){add_customUrl(title,description,addedDate,"blog/"+blogNumber+"/")}
-  function add_customUrl(title,description,addedDate,url){if(location.protocol=="file:")if(url.substring(url.length-1)=="/")url+="index.html";path_url=location.href.split(/#/)[0];path_url=path_url.substring(0,path_url.lastIndexOf("/"));appendChild(`<div style="max-width:50em;margin: 10 auto;"><div class="html_card"><p class="title"><a class="card_link" href="${path_url}/${url}">${title}</a></p>${description}(${addedDate})<p class="copy" style="margin-bottom: 1.5em;"><a class="card_link" href="${path_url}/${url}">${path_url}/${url}</a></p><p class="card_bt page"><a class="card_link" href="${path_url}/${url}">ホームページを見る</a></p></div></div>`, "div.main");}
-  add_customUrl("長文ツイート","URLの仕様を利用して長文ツイートを疑似的に可能にします。","2024/06/05","Tools/LongTweet")
-  add_customUrl("ツイートリンク生成","ツイートするリンクを生成します。","2024/05/17","Tools/GenerateTwitterTweetLink/")
-  add_customUrl("爆破ー！！！","ただただ爆発させるだけ","2024/05/17","Tools/Explosion/")
-  add_customUrl("MAKE IT A QUOTE 日本語版","MAKE IT A QUOTE の非公式の日本語版です。UIは当サイトで使用しているのものです。","2024/05/13","Tools/MakeItAQuoteJPWeb/")
-  add_customUrl("BudouX","BudouXに変換します。","2024/04/27","Tools/ConvertBudouX/")
-  add_customUrl("nikkorin Web版","偽物の MAKE IT A QUOTE（通称: nikkorin）の画像を生成するサイトです。","2024/04/24","Tools/nikkorin")
-  add_customUrl("四分位数を計算","第一四分位数や第二四分位数といった箱ひげ図に必要な情報を計算します。","2024/04/19","Tools/QuartileNumberCalculation/")
-  add("LINEの怪しいアカウントリスト","LINEの怪しい副業垢やエロ垢G（ゴキブリ）をまとめてます。","2024/04/07","6")
-  add("C#でテーマ変更","C#のWinFormsアプリでタイトルバーとコンテキストメニューのテーマを変更できるコードを公開してます。","2024/04/07","5")
-  add("ゼロ幅スペースコピー","ゼロ幅スペース文字をコピーできます。","2024/03/29","4");
-  //add("GitHubリポジトリURLに変換","GitHub PagesのURLからリポジトリのURLに変換します。","2024/03/27","3");
-  add("ユーザーエージェント","ユーザーエージェントを調べることができます。","2024/03/20","2");
-  //add("ブログを開設！","初めてブログを開設してみました。","2024/01/26","1");
-});
-    </script>      
-    <!--<script src="https://app.embed.im/snow.js" defer></script>-->
+    <style>
+.fadeIn{
+animation-name:fadeInAnime;
+animation-duration:1.5s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeInAnime{
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+    </style>
   </head>
-  <body><!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KS5Q2D2P" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript><!-- End Google Tag Manager (noscript) -->
-    <budoux-ja>
-      <div class="font_loading defaultfont" style="font-size:1em;padding-bottom:1em;">フォントを読み込んでいます...</div>
-    </budoux-ja>
-    <noscript>
-      <p>このサイトはスクリプトを使用することで正常に動作しています。ですが現在、そのスクリプトが無効にされています。このサイトを閲覧するにはまずスクリプトを許可してください。</p>
-    </noscript>
-    <budoux-ja>
-      <div class="main" style="visibility:hidden;">
-      <!--
-      <div class="center">
-        <p style="font-size:3em;">近日登場</p>
-      </div>
-      -->
-        <div style="text-align:center;font-size:2em;padding-bottom:1em;">そゃーなのブログ</div>
-      </div>
-      <div>========== Info ==========<br>・2024/06/22<br>　・強制的に「ふい字」フォントと「Noto Color Emoji」フォントを読み込ませる機能を潰しました。これによって通信量が約27MB削減されました。</div>
-    </budoux-ja>
-    </body>
+  <body class="fadeIn" data-bs-theme="dark">
+    <div class="d-flex flex-column align-items-center justify-content-center text-break text-center" style="width:99vw;height:99vh"><p class="fs-1 ">そゃーなのブログ</p><p>現在メンテナンス中です。<br>現在、サイトの主が 「 ホームページのデザイン、なんか気に入らんなぁ 」 ってことで再デザインしています。<br>気長にお待ちください。</p></div>
+  </body>
 </html>
