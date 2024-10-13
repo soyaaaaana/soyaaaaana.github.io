@@ -1,0 +1,86 @@
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="./static/css/style.css">
+<style type="text/css">/*
+  * Noto Sans Japanese (japanese) http://www.google.com/fonts/earlyaccess
+   */
+  @font-face {
+    font-family: 'Noto Sans Japanese';
+    font-style: normal;
+    font-weight: 100;
+    src: url(./ea/notosansjapanese/v6/NotoSansJP-Thin.woff2) format('woff2'),
+         url(./ea/notosansjapanese/v6/NotoSansJP-Thin.woff) format('woff'),
+         url(./ea/notosansjapanese/v6/NotoSansJP-Thin.otf) format('opentype');
+  }
+  @font-face {
+    font-family: 'Noto Sans Japanese';
+    font-style: normal;
+    font-weight: 200;
+    src: url(./ea/notosansjapanese/v6/NotoSansJP-Light.woff2) format('woff2'),
+         url(./ea/notosansjapanese/v6/NotoSansJP-Light.woff) format('woff'),
+         url(./ea/notosansjapanese/v6/NotoSansJP-Light.otf) format('opentype');
+  }
+  @font-face {
+     font-family: 'Noto Sans Japanese';
+     font-style: normal;
+     font-weight: 300;
+     src: url(./ea/notosansjapanese/v6/NotoSansJP-DemiLight.woff2) format('woff2'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-DemiLight.woff) format('woff'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-DemiLight.otf) format('opentype');
+  }
+  @font-face {
+     font-family: 'Noto Sans Japanese';
+     font-style: normal;
+     font-weight: 400;
+     src: url(./ea/notosansjapanese/v6/NotoSansJP-Regular.woff2) format('woff2'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Regular.woff) format('woff'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Regular.otf) format('opentype');
+   }
+  @font-face {
+     font-family: 'Noto Sans Japanese';
+     font-style: normal;
+     font-weight: 500;
+     src: url(./ea/notosansjapanese/v6/NotoSansJP-Medium.woff2) format('woff2'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Medium.woff) format('woff'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Medium.otf) format('opentype');
+   }
+  @font-face {
+     font-family: 'Noto Sans Japanese';
+     font-style: normal;
+     font-weight: 700;
+     src: url(./ea/notosansjapanese/v6/NotoSansJP-Bold.woff2) format('woff2'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Bold.woff) format('woff'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Bold.otf) format('opentype');
+   }
+  @font-face {
+     font-family: 'Noto Sans Japanese';
+     font-style: normal;
+     font-weight: 900;
+     src: url(./ea/notosansjapanese/v6/NotoSansJP-Black.woff2) format('woff2'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Black.woff) format('woff'),
+          url(./ea/notosansjapanese/v6/NotoSansJP-Black.otf) format('opentype');
+   }</style>
+<title>Earthquake Map</title>
+<!-- <script nonce="4d7c571b-7477-4f12-922b-9b05f66b1248">try{(function(w,d){!function(j,k,l,m){if(j.zaraz)console.error("zaraz is loaded twice");else{j[l]=j[l]||{};j[l].executed=[];j.zaraz={deferred:[],listeners:[]};j.zaraz._v="5811";j.zaraz._n="4d7c571b-7477-4f12-922b-9b05f66b1248";j.zaraz.q=[];j.zaraz._f=function(n){return async function(){var o=Array.prototype.slice.call(arguments);j.zaraz.q.push({m:n,a:o})}};for(const p of["track","set","debug"])j.zaraz[p]=j.zaraz._f(p);j.zaraz.init=()=>{var q=k.getElementsByTagName(m)[0],r=k.createElement(m),s=k.getElementsByTagName("title")[0];s&&(j[l].t=k.getElementsByTagName("title")[0].text);j[l].x=Math.random();j[l].w=j.screen.width;j[l].h=j.screen.height;j[l].j=j.innerHeight;j[l].e=j.innerWidth;j[l].l=j.location.href;j[l].r=k.referrer;j[l].k=j.screen.colorDepth;j[l].n=k.characterSet;j[l].o=(new Date).getTimezoneOffset();if(j.dataLayer)for(const t of Object.entries(Object.entries(dataLayer).reduce(((u,v)=>({...u[1],...v[1]})),{})))zaraz.set(t[0],t[1],{scope:"page"});j[l].q=[];for(;j.zaraz.q.length;){const w=j.zaraz.q.shift();j[l].q.push(w)}r.defer=!0;for(const x of[localStorage,sessionStorage])Object.keys(x||{}).filter((z=>z.startsWith("_zaraz_"))).forEach((y=>{try{j[l]["z_"+y.slice(7)]=JSON.parse(x.getItem(y))}catch{j[l]["z_"+y.slice(7)]=x.getItem(y)}}));r.referrerPolicy="origin";r.src="/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(j[l])));q.parentNode.insertBefore(r,q)};["complete","interactive"].includes(k.readyState)?zaraz.init():j.addEventListener("DOMContentLoaded",zaraz.init)}}(w,d,"zarazData","script");window.zaraz._p=async bs=>new Promise((bt=>{if(bs){bs.e&&bs.e.forEach((bu=>{try{const bv=d.querySelector("script[nonce]"),bw=bv?.nonce||bv?.getAttribute("nonce"),bx=d.createElement("script");bw&&(bx.nonce=bw);bx.innerHTML=bu;bx.onload=()=>{d.head.removeChild(bx)};d.head.appendChild(bx)}catch(by){console.error(`Error executing script: ${bu}\n`,by)}}));Promise.allSettled((bs.f||[]).map((bz=>fetch(bz[0],bz[1]))))}bt()}));zaraz._p({"e":["(function(w,d){})(window,document)"]});})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head> -->
+<body>
+<header class="data">
+<div class="title">
+<span id="title"></span>
+</div>
+<div class="now">
+発生日時: <span id="date"></span>
+</div>
+</header>
+<script>
+const params = new URLSearchParams(location.search);
+document.getElementById("title").textContent = params.get("tl");
+const date = params.get("date");
+document.getElementById("title").textContent = `${date.substring(0, 4)}/${date.substring(4, 6)}/${date.substring(6, 8)} ${date.substring(8, 10)}:${date.substring(10, 12)}:${date.substring(12, 14)}`</script>
+<div class="map" id="map">
+<script src="./bundle.js?date=202401070211" type="e0914388a1645ae76a3e89d7-text/javascript"></script>
+</div>
+<script src="./rocket-loader.min.js" data-cf-settings="e0914388a1645ae76a3e89d7-|49" defer></script>
+</body>
+</html>
